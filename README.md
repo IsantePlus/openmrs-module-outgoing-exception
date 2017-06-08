@@ -1,1 +1,1 @@
-# iSantePlus-Local-Queue
+# iSantePlus Local Queue Module
