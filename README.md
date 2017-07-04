@@ -1,1 +1,1 @@
-# iSantePlus Local Queue Module
+# iSantePlus Outgoing Exceptions Module

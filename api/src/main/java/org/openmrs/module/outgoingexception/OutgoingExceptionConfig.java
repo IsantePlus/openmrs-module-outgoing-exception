@@ -7,15 +7,15 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-package org.openmrs.module.localqueue;
+package org.openmrs.module.outgoingexception;
 
 import org.springframework.stereotype.Component;
 
 /**
  * Contains module's config.
  */
-@Component("localqueue.LocalqueueConfig")
-public class LocalqueueConfig {
+@Component("outgoingexception.OutgoingExceptionConfig")
+public class OutgoingExceptionConfig {
 	
-	public final static String MODULE_PRIVILEGE = "Local queue Privilege";
+	public final static String MODULE_PRIVILEGE = "Outgoing Exceptions Privilege";
 }

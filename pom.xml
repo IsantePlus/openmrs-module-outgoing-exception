@@ -9,18 +9,18 @@
     </parent>
 
 	<groupId>org.openmrs.module</groupId>
-	<artifactId>localqueue</artifactId>
+	<artifactId>outgoing-exception</artifactId>
 	<version>1.0.0</version>
 	<packaging>pom</packaging>
-	<name>Local queue</name>
-	<description>Module for iSantePlus local queue</description>
+	<name>Outgoing Exceptions</name>
+	<description>Module for iSantePlus Outgoing Exceptions</description>
 
 	<url>https://wiki.openmrs.org/x/FQ4z</url>
 
 	<scm>
-		<connection>scm:git:git@github.com:openmrs/openmrs-module-localqueue.git</connection>
-		<developerConnection>scm:git:git@github.com:openmrs/openmrs-module-localqueue.git</developerConnection>
-		<url>https://github.com/openmrs/openmrs-module-localqueue/</url>
+		<connection>scm:git:git@github.com:openmrs/openmrs-module-outgoing-exception.git</connection>
+		<developerConnection>scm:git:git@github.com:openmrs/openmrs-module-outgoing-exception.git</developerConnection>
+		<url>https://github.com/openmrs/openmrs-module-outgoing-exception/</url>
 	</scm>
 
 	<modules>

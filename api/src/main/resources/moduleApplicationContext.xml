@@ -23,18 +23,18 @@
   		    http://www.springframework.org/schema/util
   		    http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
-    <context:component-scan base-package="org.openmrs.module.localqueue" />
+    <context:component-scan base-package="org.openmrs.module.outgoingexception" />
 
-    <!-- Wraps LocalqueueService methods in DB transactions and OpenMRS interceptors,
+    <!-- Wraps OutgoingExceptionService methods in DB transactions and OpenMRS interceptors,
     which set audit info like dateCreated, changedBy, etc.-->
-    <bean id="localqueue.LocalqueueService"
+    <bean id="outgoingexception.OutgoingExceptionService"
             class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
         <property name="transactionManager">
             <ref bean="transactionManager" />
         </property>
         <property name="target">
-            <bean class="org.openmrs.module.localqueue.api.impl.LocalqueueServiceImpl">
-                <property name="dao" ref="localqueue.LocalqueueDao" />
+            <bean class="org.openmrs.module.outgoingexception.api.impl.OutgoingExceptionServiceImpl">
+                <property name="dao" ref="outgoingexception.OutgoingExceptionDao" />
             </bean>
         </property>
         <property name="preInterceptors">
@@ -45,13 +45,13 @@
         </property>
     </bean>
 
-    <!-- Adds LocalqueueService to OpenMRS context so it can be accessed
-    calling Context.getService(LocalqueueService.class) -->
+    <!-- Adds OutgoingExceptionService to OpenMRS context so it can be accessed
+    calling Context.getService(OutgoingExceptionService.class) -->
     <bean parent="serviceContext">
         <property name="moduleService">
             <list>
-                <value>org.openmrs.module.localqueue.api.LocalqueueService</value>
-                <ref bean="localqueue.LocalqueueService" />
+                <value>org.openmrs.module.outgoingexception.api.OutgoingExceptionService</value>
+                <ref bean="outgoingexception.OutgoingExceptionService" />
             </list>
         </property>
     </bean>

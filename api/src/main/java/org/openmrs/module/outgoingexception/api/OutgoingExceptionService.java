@@ -7,20 +7,20 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-package org.openmrs.module.localqueue.api;
+package org.openmrs.module.outgoingexception.api;
 
 import org.openmrs.annotation.Authorized;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
-import org.openmrs.module.localqueue.LocalqueueConfig;
-import org.openmrs.module.localqueue.Item;
+import org.openmrs.module.outgoingexception.OutgoingExceptionConfig;
+import org.openmrs.module.outgoingexception.OutgoingMessage;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * The main service of this module, which is exposed for other modules. See
  * moduleApplicationContext.xml on how it is wired up.
  */
-public interface LocalqueueService extends OpenmrsService {
+public interface OutgoingExceptionService extends OpenmrsService {
 	
 	/**
 	 * Returns an item by uuid. It can be called by any authenticated user. It is fetched in read
@@ -32,17 +32,17 @@ public interface LocalqueueService extends OpenmrsService {
 	 */
 	@Authorized()
 	@Transactional(readOnly = true)
-	Item getItemByUuid(String uuid) throws APIException;
+	OutgoingMessage getItemByUuid(String uuid) throws APIException;
 	
 	/**
-	 * Saves an item. Sets the owner to superuser, if it is not set. It can be called by users with
-	 * this module's privilege. It is executed in a transaction.
+	 * Saves an outgoingMessage. Sets the owner to superuser, if it is not set. It can be called by
+	 * users with this module's privilege. It is executed in a transaction.
 	 * 
-	 * @param item
+	 * @param outgoingMessage
 	 * @return
 	 * @throws APIException
 	 */
-	@Authorized(LocalqueueConfig.MODULE_PRIVILEGE)
+	@Authorized(OutgoingExceptionConfig.MODULE_PRIVILEGE)
 	@Transactional
-	Item saveItem(Item item) throws APIException;
+	OutgoingMessage saveItem(OutgoingMessage outgoingMessage) throws APIException;
 }

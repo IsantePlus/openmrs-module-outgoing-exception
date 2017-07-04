@@ -7,7 +7,7 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-package org.openmrs.module.localqueue.api;
+package org.openmrs.module.outgoingexception.api;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,24 +16,24 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.openmrs.User;
 import org.openmrs.api.UserService;
-import org.openmrs.module.localqueue.Item;
-import org.openmrs.module.localqueue.api.dao.LocalqueueDao;
-import org.openmrs.module.localqueue.api.impl.LocalqueueServiceImpl;
+import org.openmrs.module.outgoingexception.OutgoingMessage;
+import org.openmrs.module.outgoingexception.api.dao.OutgoingExceptionDao;
+import org.openmrs.module.outgoingexception.api.impl.OutgoingExceptionServiceImpl;
 import static org.mockito.Mockito.*;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 /**
- * This is a unit test, which verifies logic in LocalqueueService. It doesn't extend
+ * This is a unit test, which verifies logic in OutgoingExceptionService. It doesn't extend
  * BaseModuleContextSensitiveTest, thus it is run without the in-memory DB and Spring context.
  */
-public class LocalqueueServiceTest {
+public class OutgoingExceptionServiceTest {
 	
 	@InjectMocks
-	LocalqueueServiceImpl basicModuleService;
+	OutgoingExceptionServiceImpl basicModuleService;
 	
 	@Mock
-	LocalqueueDao dao;
+	OutgoingExceptionDao dao;
 	
 	@Mock
 	UserService userService;
@@ -46,18 +46,17 @@ public class LocalqueueServiceTest {
 	@Test
 	public void saveItem_shouldSetOwnerIfNotSet() {
 		//Given
-		Item item = new Item();
-		item.setDescription("some description");
+		OutgoingMessage outgoingMessage = new OutgoingMessage();
 		
-		when(dao.saveItem(item)).thenReturn(item);
+		when(dao.saveItem(outgoingMessage)).thenReturn(outgoingMessage);
 		
 		User user = new User();
 		when(userService.getUser(1)).thenReturn(user);
 		
 		//When
-		basicModuleService.saveItem(item);
+		basicModuleService.saveItem(outgoingMessage);
 		
 		//Then
-		assertThat(item, hasProperty("owner", is(user)));
+		assertThat(outgoingMessage, hasProperty("owner", is(user)));
 	}
 }

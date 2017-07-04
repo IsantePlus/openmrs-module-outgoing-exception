@@ -13,27 +13,47 @@
         for a list of supported elements and attributes
     -->
  
- 	<!-- Uncomment the changeset below if you want to make the Item class persistable, see also Item and LocalqueueDaoTest -->
- 	<!--
-	<changeSet id="localqueue-2016-08-02-12-21" author="raff">
+ 	<!-- Uncomment the changeset below if you want to make the OutgoingMessage class persistable, see also OutgoingMessage and OutgoingExceptionDaoTest -->
+
+	<changeSet id="outgoingexception-2016-08-02-12-22" author="Soldevelo">
 		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="localqueue_item"/></not>
+			<not><tableExists tableName="outgoingexception_message"/></not>
 		</preConditions>
 		<comment>
-			Creating the localqueue_item table
+			Creating the outgoingexception_message table
 		</comment>
-		<createTable tableName="localqueue_item">
-			<column name="localqueue_item_id" type="int" autoIncrement="true">
+		<createTable tableName="outgoingexception_message">
+			<column name="outgoingexception_message_id" type="int" autoIncrement="true">
 				<constraints primaryKey="true" nullable="false"/>
 			</column>
 			<column name="uuid" type="char(38)">
-				<constraints nullable="false" unique="true"></constraints>
+				<constraints nullable="false" unique="true"/>
 			</column>
 			<column name="owner" type="int" />
-			<column name="description" type="varchar(255)" />
+			<column name="message_body" type="varchar(255)" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="timestamp" type="datetime" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="failure_reason" type="varchar(255)" />
+            <column name="destination" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+			<column name="changed_by" type="varchar(255)" />
+			<column name="creator" type="varchar(255)" />
+			<column name="date_changed" type="datetime" />
+			<column name="date_created" type="datetime" />
+			<column name="date_voided" type="datetime" />
+			<column name="void_reason" type="varchar(255)" />
+			<column name="voided" type="varchar(255)" />
+			<column name="voided_by" type="varchar(255)" />
 		</createTable>
-        <addForeignKeyConstraint constraintName="localqueue_item_owner_fk" baseTableName="localqueue_item" baseColumnNames="owner"  referencedTableName="users"
+        <addForeignKeyConstraint constraintName="outgoingexception_message_owner_fk" baseTableName="outgoingexception_message" baseColumnNames="owner"  referencedTableName="users"
                                  referencedColumnNames="user_id" />
-    </changeSet> -->
- 
+    </changeSet>
+
 </databaseChangeLog>

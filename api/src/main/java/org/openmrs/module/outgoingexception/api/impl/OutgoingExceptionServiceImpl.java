@@ -7,25 +7,25 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-package org.openmrs.module.localqueue.api.impl;
+package org.openmrs.module.outgoingexception.api.impl;
 
 import org.openmrs.api.APIException;
 import org.openmrs.api.UserService;
 import org.openmrs.api.impl.BaseOpenmrsService;
-import org.openmrs.module.localqueue.Item;
-import org.openmrs.module.localqueue.api.LocalqueueService;
-import org.openmrs.module.localqueue.api.dao.LocalqueueDao;
+import org.openmrs.module.outgoingexception.OutgoingMessage;
+import org.openmrs.module.outgoingexception.api.OutgoingExceptionService;
+import org.openmrs.module.outgoingexception.api.dao.OutgoingExceptionDao;
 
-public class LocalqueueServiceImpl extends BaseOpenmrsService implements LocalqueueService {
+public class OutgoingExceptionServiceImpl extends BaseOpenmrsService implements OutgoingExceptionService {
 	
-	LocalqueueDao dao;
+	OutgoingExceptionDao dao;
 	
 	UserService userService;
 	
 	/**
 	 * Injected in moduleApplicationContext.xml
 	 */
-	public void setDao(LocalqueueDao dao) {
+	public void setDao(OutgoingExceptionDao dao) {
 		this.dao = dao;
 	}
 	
@@ -37,16 +37,16 @@ public class LocalqueueServiceImpl extends BaseOpenmrsService implements Localqu
 	}
 	
 	@Override
-	public Item getItemByUuid(String uuid) throws APIException {
+	public OutgoingMessage getItemByUuid(String uuid) throws APIException {
 		return dao.getItemByUuid(uuid);
 	}
 	
 	@Override
-	public Item saveItem(Item item) throws APIException {
-		if (item.getOwner() == null) {
-			item.setOwner(userService.getUser(1));
+	public OutgoingMessage saveItem(OutgoingMessage outgoingMessage) throws APIException {
+		if (outgoingMessage.getOwner() == null) {
+			outgoingMessage.setOwner(userService.getUser(1));
 		}
 		
-		return dao.saveItem(item);
+		return dao.saveItem(outgoingMessage);
 	}
 }

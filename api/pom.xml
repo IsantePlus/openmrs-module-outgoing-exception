@@ -3,12 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.openmrs.module</groupId>
-		<artifactId>localqueue</artifactId>
+		<artifactId>outgoing-exception</artifactId>
 		<version>1.0.0</version>
 	</parent>
 
-	<artifactId>localqueue-api</artifactId>
+	<artifactId>outgoing-exception-api</artifactId>
 	<packaging>jar</packaging>
-	<name>Local queue API</name>
-	<description>API project for Local queue</description>
+	<name>Outgoing Exception API</name>
+	<description>API project for Outgoing Exception</description>
 </project>

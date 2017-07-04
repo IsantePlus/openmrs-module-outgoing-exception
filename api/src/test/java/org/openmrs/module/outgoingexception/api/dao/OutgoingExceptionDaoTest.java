@@ -7,15 +7,18 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-package org.openmrs.module.localqueue.api.dao;
+package org.openmrs.module.outgoingexception.api.dao;
 
 import org.junit.Test;
 import org.junit.Ignore;
 import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.localqueue.Item;
+import org.openmrs.module.outgoingexception.OutgoingMessage;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Date;
+
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
@@ -25,34 +28,37 @@ import static org.junit.Assert.*;
  * standardTestDataset.xml in openmrs-api. All test methods are executed in transactions, which are
  * rolled back by the end of each test method.
  */
-public class LocalqueueDaoTest extends BaseModuleContextSensitiveTest {
+public class OutgoingExceptionDaoTest extends BaseModuleContextSensitiveTest {
 	
 	@Autowired
-	LocalqueueDao dao;
+	OutgoingExceptionDao dao;
 	
 	@Autowired
 	UserService userService;
 	
 	@Test
-	@Ignore("Unignore if you want to make the Item class persistable, see also Item and liquibase.xml")
+	@Ignore("Unignore if you want to make the OutgoingMessage class persistable, see also OutgoingMessage and liquibase.xml")
 	public void saveItem_shouldSaveAllPropertiesInDb() {
 		//Given
-		Item item = new Item();
-		item.setDescription("some description");
-		item.setOwner(userService.getUser(1));
+		OutgoingMessage outgoingMessage = new OutgoingMessage();
+		outgoingMessage.setOwner(userService.getUser(1));
+		outgoingMessage.setMessage_body("message");
+		outgoingMessage.setType("Hl7");
+		outgoingMessage.setDestination("Encounter");
+		Date date = new Date(2017, 11, 11);
+		outgoingMessage.setTimestamp(date);
 		
 		//When
-		dao.saveItem(item);
+		dao.saveItem(outgoingMessage);
 		
 		//Let's clean up the cache to be sure getItemByUuid fetches from DB and not from cache
 		Context.flushSession();
 		Context.clearSession();
 		
 		//Then
-		Item savedItem = dao.getItemByUuid(item.getUuid());
+		OutgoingMessage savedOutgoingMessage = dao.getItemByUuid(outgoingMessage.getUuid());
 		
-		assertThat(savedItem, hasProperty("uuid", is(item.getUuid())));
-		assertThat(savedItem, hasProperty("owner", is(item.getOwner())));
-		assertThat(savedItem, hasProperty("description", is(item.getDescription())));
+		assertThat(savedOutgoingMessage, hasProperty("uuid", is(outgoingMessage.getUuid())));
+		assertThat(savedOutgoingMessage, hasProperty("owner", is(outgoingMessage.getOwner())));
 	}
 }

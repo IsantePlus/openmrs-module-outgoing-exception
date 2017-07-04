@@ -7,17 +7,17 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-package org.openmrs.module.localqueue.api.dao;
+package org.openmrs.module.outgoingexception.api.dao;
 
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.api.db.hibernate.DbSession;
 import org.openmrs.api.db.hibernate.DbSessionFactory;
-import org.openmrs.module.localqueue.Item;
+import org.openmrs.module.outgoingexception.OutgoingMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-@Repository("localqueue.LocalqueueDao")
-public class LocalqueueDao {
+@Repository("outgoingexception.OutgoingExceptionDao")
+public class OutgoingExceptionDao {
 	
 	@Autowired
 	DbSessionFactory sessionFactory;
@@ -26,12 +26,13 @@ public class LocalqueueDao {
 		return sessionFactory.getCurrentSession();
 	}
 	
-	public Item getItemByUuid(String uuid) {
-		return (Item) getSession().createCriteria(Item.class).add(Restrictions.eq("uuid", uuid)).uniqueResult();
+	public OutgoingMessage getItemByUuid(String uuid) {
+		return (OutgoingMessage) getSession().createCriteria(OutgoingMessage.class).add(Restrictions.eq("uuid", uuid))
+		        .uniqueResult();
 	}
 	
-	public Item saveItem(Item item) {
-		getSession().saveOrUpdate(item);
-		return item;
+	public OutgoingMessage saveItem(OutgoingMessage outgoingMessage) {
+		getSession().saveOrUpdate(outgoingMessage);
+		return outgoingMessage;
 	}
 }
