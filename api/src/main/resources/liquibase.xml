@@ -15,7 +15,7 @@
  
  	<!-- Uncomment the changeset below if you want to make the OutgoingMessage class persistable, see also OutgoingMessage and OutgoingExceptionDaoTest -->
 
-	<changeSet id="outgoingexception-2016-08-02-12-22" author="Soldevelo">
+	<changeSet id="outgoingexception-2016-08-02-12-25" author="Soldevelo">
 		<preConditions onFail="MARK_RAN">
 			<not><tableExists tableName="outgoingexception_message"/></not>
 		</preConditions>
@@ -43,6 +43,7 @@
             <column name="type" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
+			<column name="failure" type="boolean" />
 			<column name="changed_by" type="varchar(255)" />
 			<column name="creator" type="varchar(255)" />
 			<column name="date_changed" type="datetime" />

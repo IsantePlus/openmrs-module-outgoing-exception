@@ -58,6 +58,10 @@ public class OutgoingMessage extends BaseOpenmrsData {
 	@Basic
 	@Column(name = "type", length = 255)
 	private String type;
+
+	@Basic
+	@Column(name = "failure")
+	private Boolean failure;
 	
 	@Override
 	public Integer getId() {
@@ -125,5 +129,13 @@ public class OutgoingMessage extends BaseOpenmrsData {
 	
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public Boolean getFailure() {
+		return failure;
+	}
+
+	public void setFailure(Boolean failure) {
+		this.failure = failure;
 	}
 }
