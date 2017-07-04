@@ -7,13 +7,13 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-package org.openmrs.module.outgoingexception.api.dao;
+package org.openmrs.module.outgoingmessageexceptions.api.dao;
 
 import org.junit.Test;
 import org.junit.Ignore;
 import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.outgoingexception.OutgoingMessage;
+import org.openmrs.module.outgoingmessageexceptions.OutgoingMessage;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -28,10 +28,10 @@ import static org.junit.Assert.*;
  * standardTestDataset.xml in openmrs-api. All test methods are executed in transactions, which are
  * rolled back by the end of each test method.
  */
-public class OutgoingExceptionDaoTest extends BaseModuleContextSensitiveTest {
+public class OutgoingMessageExceptionsDaoTest extends BaseModuleContextSensitiveTest {
 	
 	@Autowired
-	OutgoingExceptionDao dao;
+	OutgoingMessageExceptionsDao dao;
 	
 	@Autowired
 	UserService userService;
@@ -42,7 +42,7 @@ public class OutgoingExceptionDaoTest extends BaseModuleContextSensitiveTest {
 		//Given
 		OutgoingMessage outgoingMessage = new OutgoingMessage();
 		outgoingMessage.setOwner(userService.getUser(1));
-		outgoingMessage.setMessage_body("message");
+		outgoingMessage.setMessageBody("message");
 		outgoingMessage.setType("Hl7");
 		outgoingMessage.setDestination("Encounter");
 		Date date = new Date(2017, 11, 11);

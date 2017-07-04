@@ -7,13 +7,13 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-package org.openmrs.module.outgoingexception;
+package org.openmrs.module.outgoingmessageexceptions;
 
 import java.util.Map;
 
 import org.junit.Test;
 import org.openmrs.module.Extension;
-import org.openmrs.module.outgoingexception.extension.html.AdminList;
+import org.openmrs.module.outgoingmessageexceptions.extension.html.AdminList;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 

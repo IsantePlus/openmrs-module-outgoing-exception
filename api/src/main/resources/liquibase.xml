@@ -13,7 +13,7 @@
         for a list of supported elements and attributes
     -->
  
- 	<!-- Uncomment the changeset below if you want to make the OutgoingMessage class persistable, see also OutgoingMessage and OutgoingExceptionDaoTest -->
+ 	<!-- Uncomment the changeset below if you want to make the OutgoingMessage class persistable, see also OutgoingMessage and OutgoingMessageExceptionsDaoTest -->
 
 	<changeSet id="outgoingexception-2016-08-02-12-25" author="Soldevelo">
 		<preConditions onFail="MARK_RAN">
@@ -30,13 +30,13 @@
 				<constraints nullable="false" unique="true"/>
 			</column>
 			<column name="owner" type="int" />
-			<column name="message_body" type="varchar(255)" >
+			<column name="messageBody" type="varchar(255)" >
                 <constraints nullable="false"/>
             </column>
             <column name="timestamp" type="datetime" >
                 <constraints nullable="false"/>
             </column>
-            <column name="failure_reason" type="varchar(255)" />
+            <column name="failureReason" type="varchar(255)" />
             <column name="destination" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>

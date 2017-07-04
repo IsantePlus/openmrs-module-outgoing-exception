@@ -7,7 +7,7 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-package org.openmrs.module.outgoingexception;
+package org.openmrs.module.outgoingmessageexceptions;
 
 import org.openmrs.BaseOpenmrsData;
 import org.openmrs.User;
@@ -26,7 +26,7 @@ import java.util.Date;
  * Please note that a corresponding table schema must be created in liquibase.xml.
  */
 //Uncomment 2 lines below if you want to make the OutgoingMessage class persistable, see also OutgoingExceptionDaoTest and liquibase.xml
-@Entity(name = "outgoingexception.OutgoingMessage")
+@Entity(name = "outgoingmessageexceptions.OutgoingMessage")
 @Table(name = "outgoingexception_message")
 public class OutgoingMessage extends BaseOpenmrsData {
 	
@@ -40,16 +40,16 @@ public class OutgoingMessage extends BaseOpenmrsData {
 	private User owner;
 	
 	@Basic
-	@Column(name = "message_body", length = 255)
-	private String message_body;
+	@Column(name = "messageBody", length = 255)
+	private String messageBody;
 	
 	@Basic
 	@Column(name = "timestamp", length = 255)
 	private Date timestamp;
 	
 	@Basic
-	@Column(name = "failure_reason", length = 255)
-	private String failure_reason;
+	@Column(name = "failureReason", length = 255)
+	private String failureReason;
 	
 	@Basic
 	@Column(name = "destination", length = 255)
@@ -58,7 +58,7 @@ public class OutgoingMessage extends BaseOpenmrsData {
 	@Basic
 	@Column(name = "type", length = 255)
 	private String type;
-
+	
 	@Basic
 	@Column(name = "failure")
 	private Boolean failure;
@@ -91,28 +91,12 @@ public class OutgoingMessage extends BaseOpenmrsData {
 		this.owner = owner;
 	}
 	
-	public String getMessage_body() {
-		return message_body;
-	}
-	
-	public void setMessage_body(String message_body) {
-		this.message_body = message_body;
-	}
-	
 	public Date getTimestamp() {
 		return timestamp;
 	}
 	
 	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
-	}
-	
-	public String getFailure_reason() {
-		return failure_reason;
-	}
-	
-	public void setFailure_reason(String failure_reason) {
-		this.failure_reason = failure_reason;
 	}
 	
 	public String getDestination() {
@@ -130,12 +114,28 @@ public class OutgoingMessage extends BaseOpenmrsData {
 	public void setType(String type) {
 		this.type = type;
 	}
-
+	
 	public Boolean getFailure() {
 		return failure;
 	}
-
+	
 	public void setFailure(Boolean failure) {
 		this.failure = failure;
+	}
+	
+	public String getMessageBody() {
+		return messageBody;
+	}
+	
+	public void setMessageBody(String messageBody) {
+		this.messageBody = messageBody;
+	}
+	
+	public String getFailureReason() {
+		return failureReason;
+	}
+	
+	public void setFailureReason(String failureReason) {
+		this.failureReason = failureReason;
 	}
 }

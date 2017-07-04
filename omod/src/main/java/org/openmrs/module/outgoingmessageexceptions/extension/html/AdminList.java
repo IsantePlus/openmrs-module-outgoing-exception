@@ -7,7 +7,7 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-package org.openmrs.module.outgoingexception.extension.html;
+package org.openmrs.module.outgoingmessageexceptions.extension.html;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,8 +17,8 @@ import org.openmrs.module.web.extension.AdministrationSectionExt;
 
 /**
  * This class defines the links that will appear on the administration page under the
- * "outgoingexception.title" heading. This extension is enabled by defining (uncommenting) it in the
- * config.xml file.
+ * "outgoingmessageexceptions.title" heading. This extension is enabled by defining (uncommenting)
+ * it in the config.xml file.
  */
 public class AdminList extends AdministrationSectionExt {
 	
@@ -43,7 +43,7 @@ public class AdminList extends AdministrationSectionExt {
 		
 		Map<String, String> map = new HashMap<String, String>();
 		
-		map.put("module/outgoingexception/outgoingexception.form", "outgoingexception.title");
+		map.put("module/outgoingmessageexceptions/outgoingmessageexceptions.form", "outgoingmessageexceptions.title");
 		
 		return map;
 	}

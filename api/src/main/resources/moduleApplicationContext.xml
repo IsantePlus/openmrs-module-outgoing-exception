@@ -23,18 +23,18 @@
   		    http://www.springframework.org/schema/util
   		    http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
-    <context:component-scan base-package="org.openmrs.module.outgoingexception" />
+    <context:component-scan base-package="org.openmrs.module.outgoingmessageexceptions" />
 
-    <!-- Wraps OutgoingExceptionService methods in DB transactions and OpenMRS interceptors,
+    <!-- Wraps OutgoingMessageExceptionsService methods in DB transactions and OpenMRS interceptors,
     which set audit info like dateCreated, changedBy, etc.-->
-    <bean id="outgoingexception.OutgoingExceptionService"
+    <bean id="outgoingmessageexceptions.OutgoingExceptionService"
             class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
         <property name="transactionManager">
             <ref bean="transactionManager" />
         </property>
         <property name="target">
-            <bean class="org.openmrs.module.outgoingexception.api.impl.OutgoingExceptionServiceImpl">
-                <property name="dao" ref="outgoingexception.OutgoingExceptionDao" />
+            <bean class="org.openmrs.module.outgoingmessageexceptions.api.impl.OutgoingMessageExceptionsServiceImpl">
+                <property name="dao" ref="outgoingmessageexceptions.OutgoingExceptionDao" />
             </bean>
         </property>
         <property name="preInterceptors">
@@ -45,13 +45,13 @@
         </property>
     </bean>
 
-    <!-- Adds OutgoingExceptionService to OpenMRS context so it can be accessed
-    calling Context.getService(OutgoingExceptionService.class) -->
+    <!-- Adds OutgoingMessageExceptionsService to OpenMRS context so it can be accessed
+    calling Context.getService(OutgoingMessageExceptionsService.class) -->
     <bean parent="serviceContext">
         <property name="moduleService">
             <list>
-                <value>org.openmrs.module.outgoingexception.api.OutgoingExceptionService</value>
-                <ref bean="outgoingexception.OutgoingExceptionService" />
+                <value>org.openmrs.module.outgoingmessageexceptions.api.OutgoingMessageExceptionsService</value>
+                <ref bean="outgoingmessageexceptions.OutgoingExceptionService" />
             </list>
         </property>
     </bean>

@@ -3,12 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.openmrs.module</groupId>
-		<artifactId>outgoing-exception</artifactId>
+		<artifactId>outgoing-message-exceptions</artifactId>
 		<version>1.0.0</version>
 	</parent>
 
-	<artifactId>outgoing-exception-api</artifactId>
+	<artifactId>outgoing-message-exceptions-api</artifactId>
 	<packaging>jar</packaging>
-	<name>Outgoing Exception API</name>
-	<description>API project for Outgoing Exception</description>
+	<name>Outgoing Message Exception API</name>
+	<description>API project for Outgoing Message Exception</description>
 </project>

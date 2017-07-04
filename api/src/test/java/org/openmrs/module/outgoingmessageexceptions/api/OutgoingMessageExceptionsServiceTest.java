@@ -7,7 +7,7 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-package org.openmrs.module.outgoingexception.api;
+package org.openmrs.module.outgoingmessageexceptions.api;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,24 +16,24 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.openmrs.User;
 import org.openmrs.api.UserService;
-import org.openmrs.module.outgoingexception.OutgoingMessage;
-import org.openmrs.module.outgoingexception.api.dao.OutgoingExceptionDao;
-import org.openmrs.module.outgoingexception.api.impl.OutgoingExceptionServiceImpl;
+import org.openmrs.module.outgoingmessageexceptions.OutgoingMessage;
+import org.openmrs.module.outgoingmessageexceptions.api.dao.OutgoingMessageExceptionsDao;
+import org.openmrs.module.outgoingmessageexceptions.api.impl.OutgoingMessageExceptionsServiceImpl;
 import static org.mockito.Mockito.*;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 /**
- * This is a unit test, which verifies logic in OutgoingExceptionService. It doesn't extend
+ * This is a unit test, which verifies logic in OutgoingMessageExceptionsService. It doesn't extend
  * BaseModuleContextSensitiveTest, thus it is run without the in-memory DB and Spring context.
  */
-public class OutgoingExceptionServiceTest {
+public class OutgoingMessageExceptionsServiceTest {
 	
 	@InjectMocks
-	OutgoingExceptionServiceImpl basicModuleService;
+	OutgoingMessageExceptionsServiceImpl basicModuleService;
 	
 	@Mock
-	OutgoingExceptionDao dao;
+	OutgoingMessageExceptionsDao dao;
 	
 	@Mock
 	UserService userService;

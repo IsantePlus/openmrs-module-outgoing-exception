@@ -7,17 +7,17 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-package org.openmrs.module.outgoingexception.api.dao;
+package org.openmrs.module.outgoingmessageexceptions.api.dao;
 
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.api.db.hibernate.DbSession;
 import org.openmrs.api.db.hibernate.DbSessionFactory;
-import org.openmrs.module.outgoingexception.OutgoingMessage;
+import org.openmrs.module.outgoingmessageexceptions.OutgoingMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-@Repository("outgoingexception.OutgoingExceptionDao")
-public class OutgoingExceptionDao {
+@Repository("outgoingmessageexceptions.OutgoingMessageExceptionsDao")
+public class OutgoingMessageExceptionsDao {
 	
 	@Autowired
 	DbSessionFactory sessionFactory;

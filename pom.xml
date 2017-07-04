@@ -9,18 +9,18 @@
     </parent>
 
 	<groupId>org.openmrs.module</groupId>
-	<artifactId>outgoing-exception</artifactId>
+	<artifactId>outgoing-message-exceptions</artifactId>
 	<version>1.0.0</version>
 	<packaging>pom</packaging>
-	<name>Outgoing Exceptions</name>
-	<description>Module for iSantePlus Outgoing Exceptions</description>
+	<name>Outgoing Message Exceptions</name>
+	<description>Module for iSantePlus Outgoing Message Exceptions</description>
 
 	<url>https://wiki.openmrs.org/x/FQ4z</url>
 
 	<scm>
-		<connection>scm:git:git@github.com:openmrs/openmrs-module-outgoing-exception.git</connection>
-		<developerConnection>scm:git:git@github.com:openmrs/openmrs-module-outgoing-exception.git</developerConnection>
-		<url>https://github.com/openmrs/openmrs-module-outgoing-exception/</url>
+		<connection>scm:git:git@github.com:openmrs/openmrs-module-outgoing-message-exceptions.git</connection>
+		<developerConnection>scm:git:git@github.com:openmrs/openmrs-module-outgoing-message-exceptions.git</developerConnection>
+		<url>https://github.com/openmrs/openmrs-module-outgoing-message-exceptions/</url>
 	</scm>
 
 	<modules>

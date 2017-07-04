@@ -7,15 +7,15 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-package org.openmrs.module.outgoingexception;
+package org.openmrs.module.outgoingmessageexceptions;
 
 import org.springframework.stereotype.Component;
 
 /**
  * Contains module's config.
  */
-@Component("outgoingexception.OutgoingExceptionConfig")
-public class OutgoingExceptionConfig {
+@Component("outgoingmessageexceptions.OutgoingMessageExceptionsConfig")
+public class OutgoingMessageExceptionsConfig {
 	
-	public final static String MODULE_PRIVILEGE = "Outgoing Exceptions Privilege";
+	public final static String MODULE_PRIVILEGE = "Outgoing Message Exceptions Privilege";
 }

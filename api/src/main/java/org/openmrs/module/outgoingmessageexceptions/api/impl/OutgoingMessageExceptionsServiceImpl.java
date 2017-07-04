@@ -7,25 +7,25 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-package org.openmrs.module.outgoingexception.api.impl;
+package org.openmrs.module.outgoingmessageexceptions.api.impl;
 
 import org.openmrs.api.APIException;
 import org.openmrs.api.UserService;
 import org.openmrs.api.impl.BaseOpenmrsService;
-import org.openmrs.module.outgoingexception.OutgoingMessage;
-import org.openmrs.module.outgoingexception.api.OutgoingExceptionService;
-import org.openmrs.module.outgoingexception.api.dao.OutgoingExceptionDao;
+import org.openmrs.module.outgoingmessageexceptions.OutgoingMessage;
+import org.openmrs.module.outgoingmessageexceptions.api.OutgoingMessageExceptionsService;
+import org.openmrs.module.outgoingmessageexceptions.api.dao.OutgoingMessageExceptionsDao;
 
-public class OutgoingExceptionServiceImpl extends BaseOpenmrsService implements OutgoingExceptionService {
+public class OutgoingMessageExceptionsServiceImpl extends BaseOpenmrsService implements OutgoingMessageExceptionsService {
 	
-	OutgoingExceptionDao dao;
+	OutgoingMessageExceptionsDao dao;
 	
 	UserService userService;
 	
 	/**
 	 * Injected in moduleApplicationContext.xml
 	 */
-	public void setDao(OutgoingExceptionDao dao) {
+	public void setDao(OutgoingMessageExceptionsDao dao) {
 		this.dao = dao;
 	}
 	

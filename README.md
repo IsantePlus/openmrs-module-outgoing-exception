@@ -1,1 +1,1 @@
-# iSantePlus Outgoing Exceptions Module
+# iSantePlus Outgoing Message Exceptions Module

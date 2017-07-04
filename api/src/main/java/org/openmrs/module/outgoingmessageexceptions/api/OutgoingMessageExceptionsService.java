@@ -7,20 +7,20 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-package org.openmrs.module.outgoingexception.api;
+package org.openmrs.module.outgoingmessageexceptions.api;
 
 import org.openmrs.annotation.Authorized;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
-import org.openmrs.module.outgoingexception.OutgoingExceptionConfig;
-import org.openmrs.module.outgoingexception.OutgoingMessage;
+import org.openmrs.module.outgoingmessageexceptions.OutgoingMessageExceptionsConfig;
+import org.openmrs.module.outgoingmessageexceptions.OutgoingMessage;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * The main service of this module, which is exposed for other modules. See
  * moduleApplicationContext.xml on how it is wired up.
  */
-public interface OutgoingExceptionService extends OpenmrsService {
+public interface OutgoingMessageExceptionsService extends OpenmrsService {
 	
 	/**
 	 * Returns an item by uuid. It can be called by any authenticated user. It is fetched in read
@@ -42,7 +42,7 @@ public interface OutgoingExceptionService extends OpenmrsService {
 	 * @return
 	 * @throws APIException
 	 */
-	@Authorized(OutgoingExceptionConfig.MODULE_PRIVILEGE)
+	@Authorized(OutgoingMessageExceptionsConfig.MODULE_PRIVILEGE)
 	@Transactional
 	OutgoingMessage saveItem(OutgoingMessage outgoingMessage) throws APIException;
 }
