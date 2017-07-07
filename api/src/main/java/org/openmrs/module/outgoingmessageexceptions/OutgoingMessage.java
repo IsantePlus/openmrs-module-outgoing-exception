@@ -27,12 +27,12 @@ import java.util.Date;
  */
 //Uncomment 2 lines below if you want to make the OutgoingMessage class persistable, see also OutgoingExceptionDaoTest and liquibase.xml
 @Entity(name = "outgoingmessageexceptions.OutgoingMessage")
-@Table(name = "outgoingexception_message")
+@Table(name = "outgoingmessageexceptions_message")
 public class OutgoingMessage extends BaseOpenmrsData {
 	
 	@Id
 	@GeneratedValue
-	@Column(name = "outgoingexception_message_id")
+	@Column(name = "outgoingmessageexceptions_message_id")
 	private Integer id;
 	
 	@ManyToOne

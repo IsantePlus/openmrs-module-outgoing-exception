@@ -27,14 +27,14 @@
 
     <!-- Wraps OutgoingMessageExceptionsService methods in DB transactions and OpenMRS interceptors,
     which set audit info like dateCreated, changedBy, etc.-->
-    <bean id="outgoingmessageexceptions.OutgoingExceptionService"
+    <bean id="outgoingmessageexceptions.OutgoingMessageExceptionsService"
             class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
         <property name="transactionManager">
             <ref bean="transactionManager" />
         </property>
         <property name="target">
             <bean class="org.openmrs.module.outgoingmessageexceptions.api.impl.OutgoingMessageExceptionsServiceImpl">
-                <property name="dao" ref="outgoingmessageexceptions.OutgoingExceptionDao" />
+                <property name="dao" ref="outgoingmessageexceptions.OutgoingMessageExceptionsDao" />
             </bean>
         </property>
         <property name="preInterceptors">
@@ -51,7 +51,7 @@
         <property name="moduleService">
             <list>
                 <value>org.openmrs.module.outgoingmessageexceptions.api.OutgoingMessageExceptionsService</value>
-                <ref bean="outgoingmessageexceptions.OutgoingExceptionService" />
+                <ref bean="outgoingmessageexceptions.OutgoingMessageExceptionsService" />
             </list>
         </property>
     </bean>

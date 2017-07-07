@@ -17,6 +17,17 @@
 
 	<url>https://wiki.openmrs.org/x/FQ4z</url>
 
+	<properties>
+		<openmrsPlatformVersion>2.0.5</openmrsPlatformVersion>
+
+		<htmlformentryVersion>3.3.2</htmlformentryVersion>
+		<uiframeworkVersion>3.11.0</uiframeworkVersion>
+		<htmlformentryuiVersion>1.6.3</htmlformentryuiVersion>
+		<appframeworkVersion>2.10.0</appframeworkVersion>
+		<emrapiVersion>1.21.0</emrapiVersion>
+		<coreappsVersion>1.13.0</coreappsVersion>
+	</properties>
+
 	<scm>
 		<connection>scm:git:git@github.com:openmrs/openmrs-module-outgoing-message-exceptions.git</connection>
 		<developerConnection>scm:git:git@github.com:openmrs/openmrs-module-outgoing-message-exceptions.git</developerConnection>
@@ -27,6 +38,50 @@
 		<module>api</module>
 		<module>omod</module>
 	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- Begin OpenMRS modules -->
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>htmlformentry-api-1.10</artifactId>
+				<version>${htmlformentryVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>uiframework-api</artifactId>
+				<version>${uiframeworkVersion}</version>
+				<scope>provided</scope>
+				<type>jar</type>
+			</dependency>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>htmlformentryui-api</artifactId>
+				<version>${htmlformentryuiVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>appframework-api</artifactId>
+				<version>${appframeworkVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>emrapi-api</artifactId>
+				<version>${emrapiVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>coreapps-api</artifactId>
+				<version>${coreappsVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+			<!-- End OpenMRS modules -->
+		</dependencies>
+	</dependencyManagement>
 
 	<repositories>
 		<repository>
@@ -41,6 +96,7 @@
 			<url>http://repo1.maven.org/maven2</url>
 		</repository>
 	</repositories>
+
 	<pluginRepositories>
 		<pluginRepository>
 			<id>openmrs-repo</id>
@@ -52,7 +108,28 @@
 		</pluginRepository>
 	</pluginRepositories>
 
-    <properties>
-        <openmrsPlatformVersion>2.0.5</openmrsPlatformVersion>
-    </properties>
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<target>1.8</target>
+						<source>1.8</source>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.openmrs.maven.plugins</groupId>
+					<artifactId>maven-openmrs-plugin</artifactId>
+					<version>1.0.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>2.8</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 </project>
