@@ -30,7 +30,7 @@
 				<constraints nullable="false" unique="true"/>
 			</column>
 			<column name="owner" type="int" />
-			<column name="messageBody" type="varchar(255)" >
+			<column name="messageBody" type="text" >
                 <constraints nullable="false"/>
             </column>
             <column name="timestamp" type="datetime" >
