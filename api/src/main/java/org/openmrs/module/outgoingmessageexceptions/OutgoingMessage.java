@@ -67,6 +67,19 @@ public class OutgoingMessage extends BaseOpenmrsData {
 	@Basic
 	@Column(name = "failure")
 	private Boolean failure;
+
+	public OutgoingMessage() {}
+
+	public OutgoingMessage(Integer id, Integer ownerId, String messageBody, Date timestamp, String failureReason, String destination, String type, boolean failure) {
+		this.id = id;
+		this.owner = new User(ownerId);
+		this.messageBody = messageBody;
+		this.timestamp = timestamp;
+		this.failureReason = failureReason;
+		this.destination = destination;
+		this.type = type;
+		this.failure = failure;
+	}
 	
 	@Override
 	public Integer getId() {
@@ -159,13 +172,17 @@ public class OutgoingMessage extends BaseOpenmrsData {
 		        JsonProcessingException {
 			jgen.writeStartObject();
 			jgen.writeNumberField("id", object.id);
-			jgen.writeStringField("owner", object.getOwner().getUuid());
 			jgen.writeStringField("messageBody", object.messageBody);
 			jgen.writeStringField("timestamp", object.timestamp.toString());
 			jgen.writeStringField("failureReason", object.failureReason);
 			jgen.writeStringField("destination", object.destination);
 			jgen.writeStringField("type", object.type);
 			jgen.writeBooleanField("failure", object.failure);
+
+			if(null != object.getOwner()) {
+				jgen.writeNumberField("owner", object.getOwner().getUserId());
+			}
+
 			jgen.writeEndObject();
 		}
 	}

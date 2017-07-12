@@ -9,6 +9,7 @@
  */
 package org.openmrs.module.outgoingmessageexceptions.api;
 
+import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -19,6 +20,12 @@ import org.openmrs.api.UserService;
 import org.openmrs.module.outgoingmessageexceptions.OutgoingMessage;
 import org.openmrs.module.outgoingmessageexceptions.api.dao.OutgoingMessageExceptionsDao;
 import org.openmrs.module.outgoingmessageexceptions.api.impl.OutgoingMessageExceptionsServiceImpl;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+
+import java.io.InputStream;
+import java.util.Date;
+
 import static org.mockito.Mockito.*;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
@@ -28,10 +35,11 @@ import static org.junit.Assert.*;
  * BaseModuleContextSensitiveTest, thus it is run without the in-memory DB and Spring context.
  */
 public class OutgoingMessageExceptionsServiceTest {
-	
+	private static final String OUTGOING_MESSAGE_RESPONSE_JSON = "/testOutgoingMessage.json";
+
 	@InjectMocks
 	OutgoingMessageExceptionsServiceImpl basicModuleService;
-	
+
 	@Mock
 	OutgoingMessageExceptionsDao dao;
 	
@@ -59,4 +67,35 @@ public class OutgoingMessageExceptionsServiceTest {
 		//Then
 		assertThat(outgoingMessage, hasProperty("owner", is(user)));
 	}
+
+	@Test
+	public void shouldReturnMessageById() throws Exception {
+		Integer testId = 1;
+
+		when(dao.getMessageById(1)).thenReturn(prepareDummyOutgoingMessage());
+
+		String expected = readJsonFromFile(OUTGOING_MESSAGE_RESPONSE_JSON);
+		String fetched = basicModuleService.getMessageById(testId);
+
+		assertEquals(expected, fetched);
+	}
+
+	private OutgoingMessage prepareDummyOutgoingMessage() {
+		OutgoingMessage outgoingMessage = new OutgoingMessage(1, 2, "testMessageBody",
+				new Date(2017, 11, 11), "testFailureReason", "testDestination",
+				"testType", false);
+
+		return outgoingMessage;
+	}
+
+	private String readJsonFromFile(String filename) throws Exception {
+		Resource resource = new ClassPathResource(filename);
+		String json;
+		try(InputStream is = resource.getInputStream()) {
+			json = IOUtils.toString(is);
+		}
+
+		return json;
+	}
 }
+
