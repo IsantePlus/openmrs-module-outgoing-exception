@@ -1,6 +1,6 @@
 package org.openmrs.module.outgoingmessageexceptions.web.controller.rest;
 
-import org.openmrs.module.outgoingmessageexceptions.OutgoingMessage;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.openmrs.module.outgoingmessageexceptions.api.OutgoingMessageExceptionsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +28,7 @@ public class OutgoingMessageExceptionsRestController {
 	@RequestMapping(value = "/message", method = RequestMethod.GET)
 	@ResponseBody
 	public String getMessage(@RequestParam(value = "uniqueID", required = true) String uniqueID,
-							 @RequestBody(required = false) String body, HttpServletRequest request, HttpServletResponse response) {
+	        @RequestBody(required = false) String body, HttpServletRequest request, HttpServletResponse response) {
 		logger.debug("Get Single message reached");
 		return uniqueID + " " + body;
 	}
@@ -41,9 +41,9 @@ public class OutgoingMessageExceptionsRestController {
 		return scope;
 	}
 	
-	@RequestMapping(value = "/messages/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/messages/{id}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public OutgoingMessage getMessageById(@PathVariable Integer id) {
+	public String getMessageById(@PathVariable Integer id) throws JsonProcessingException {
 		logger.debug("Get Single message reached by message id");
 		return outgoingMessageExceptionsService.getMessageById(id);
 	}

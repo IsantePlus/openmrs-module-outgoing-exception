@@ -9,6 +9,7 @@
  */
 package org.openmrs.module.outgoingmessageexceptions.api;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.openmrs.annotation.Authorized;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
@@ -56,5 +57,5 @@ public interface OutgoingMessageExceptionsService extends OpenmrsService {
 	 */
 	@Authorized()
 	@Transactional(readOnly = true)
-	OutgoingMessage getMessageById(Integer id) throws APIException;
+	String getMessageById(Integer id) throws APIException, JsonProcessingException;
 }

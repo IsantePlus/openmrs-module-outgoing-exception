@@ -9,6 +9,10 @@
  */
 package org.openmrs.module.outgoingmessageexceptions;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import org.openmrs.BaseOpenmrsData;
 import org.openmrs.User;
 
@@ -20,6 +24,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.io.IOException;
 import java.util.Date;
 
 /**
@@ -139,8 +144,29 @@ public class OutgoingMessage extends BaseOpenmrsData {
 		this.failureReason = failureReason;
 	}
 	
-	@Override
-	public String toString() {
-		return String.format("OutgoingMessage{id=%d, messageBody=%s, destination=%s, type=%s}", id, messageBody, destination, type);
+	public static class OutgoingMessageSerializer extends StdSerializer<OutgoingMessage> {
+		
+		public OutgoingMessageSerializer() {
+			this(null);
+		}
+		
+		public OutgoingMessageSerializer(Class<OutgoingMessage> t) {
+			super(t);
+		}
+		
+		@Override
+		public void serialize(OutgoingMessage object, JsonGenerator jgen, SerializerProvider provider) throws IOException,
+		        JsonProcessingException {
+			jgen.writeStartObject();
+			jgen.writeNumberField("id", object.id);
+			jgen.writeStringField("owner", object.getOwner().getUuid());
+			jgen.writeStringField("messageBody", object.messageBody);
+			jgen.writeStringField("timestamp", object.timestamp.toString());
+			jgen.writeStringField("failureReason", object.failureReason);
+			jgen.writeStringField("destination", object.destination);
+			jgen.writeStringField("type", object.type);
+			jgen.writeBooleanField("failure", object.failure);
+			jgen.writeEndObject();
+		}
 	}
 }

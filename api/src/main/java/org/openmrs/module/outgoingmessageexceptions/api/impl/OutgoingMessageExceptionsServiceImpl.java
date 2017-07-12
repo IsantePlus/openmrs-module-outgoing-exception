@@ -9,6 +9,9 @@
  */
 package org.openmrs.module.outgoingmessageexceptions.api.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.openmrs.api.APIException;
 import org.openmrs.api.UserService;
 import org.openmrs.api.impl.BaseOpenmrsService;
@@ -51,7 +54,15 @@ public class OutgoingMessageExceptionsServiceImpl extends BaseOpenmrsService imp
 	}
 	
 	@Override
-	public OutgoingMessage getMessageById(Integer id) throws APIException {
-		return dao.getMessageById(id);
+	public String getMessageById(Integer id) throws APIException, JsonProcessingException {
+		
+		OutgoingMessage outgoingMessage = dao.getMessageById(id);
+		ObjectMapper mapper = new ObjectMapper();
+		
+		SimpleModule module = new SimpleModule();
+		module.addSerializer(OutgoingMessage.class, new OutgoingMessage.OutgoingMessageSerializer());
+		mapper.registerModule(module);
+		
+		return mapper.writeValueAsString(outgoingMessage);
 	}
 }
