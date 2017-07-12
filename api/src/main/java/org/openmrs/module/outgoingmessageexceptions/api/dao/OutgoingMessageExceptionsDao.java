@@ -35,4 +35,9 @@ public class OutgoingMessageExceptionsDao {
 		getSession().saveOrUpdate(outgoingMessage);
 		return outgoingMessage;
 	}
+	
+	public OutgoingMessage getMessageById(Integer id) {
+		return (OutgoingMessage) getSession().createCriteria(OutgoingMessage.class).add(Restrictions.eq("id", id))
+		        .uniqueResult();
+	}
 }

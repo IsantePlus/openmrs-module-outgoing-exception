@@ -49,4 +49,9 @@ public class OutgoingMessageExceptionsServiceImpl extends BaseOpenmrsService imp
 		
 		return dao.saveItem(outgoingMessage);
 	}
+	
+	@Override
+	public OutgoingMessage getMessageById(Integer id) throws APIException {
+		return dao.getMessageById(id);
+	}
 }

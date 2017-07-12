@@ -138,4 +138,9 @@ public class OutgoingMessage extends BaseOpenmrsData {
 	public void setFailureReason(String failureReason) {
 		this.failureReason = failureReason;
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("OutgoingMessage{id=%d, messageBody=%s, destination=%s, type=%s}", id, messageBody, destination, type);
+	}
 }

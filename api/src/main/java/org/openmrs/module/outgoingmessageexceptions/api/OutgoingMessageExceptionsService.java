@@ -45,4 +45,16 @@ public interface OutgoingMessageExceptionsService extends OpenmrsService {
 	@Authorized(OutgoingMessageExceptionsConfig.MODULE_PRIVILEGE)
 	@Transactional
 	OutgoingMessage saveItem(OutgoingMessage outgoingMessage) throws APIException;
+	
+	/**
+	 * Returns an OutgoingMessage by id. It can be called by any authenticated user. It is fetched
+	 * in read only transaction.
+	 * 
+	 * @param id
+	 * @return OutgoingMessage
+	 * @throws APIException
+	 */
+	@Authorized()
+	@Transactional(readOnly = true)
+	OutgoingMessage getMessageById(Integer id) throws APIException;
 }
