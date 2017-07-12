@@ -18,17 +18,26 @@ import org.mockito.MockitoAnnotations;
 import org.openmrs.User;
 import org.openmrs.api.UserService;
 import org.openmrs.module.outgoingmessageexceptions.OutgoingMessage;
+import org.openmrs.module.outgoingmessageexceptions.api.converter.OutgoingMessageStringToDateConverter;
 import org.openmrs.module.outgoingmessageexceptions.api.dao.OutgoingMessageExceptionsDao;
 import org.openmrs.module.outgoingmessageexceptions.api.impl.OutgoingMessageExceptionsServiceImpl;
+import org.openmrs.module.outgoingmessageexceptions.api.model.enums.MessageType;
+import org.openmrs.module.outgoingmessageexceptions.api.model.enums.SortingFieldName;
+import org.openmrs.module.outgoingmessageexceptions.api.model.enums.SortingOrder;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 import java.io.InputStream;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-import static org.mockito.Mockito.*;
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.when;
 
 /**
  * This is a unit test, which verifies logic in OutgoingMessageExceptionsService. It doesn't extend
@@ -37,6 +46,8 @@ import static org.junit.Assert.*;
 public class OutgoingMessageExceptionsServiceTest {
 	
 	private static final String OUTGOING_MESSAGE_RESPONSE_JSON = "/testOutgoingMessage.json";
+
+	private static final String OUTGOING_PAGINATED_MESSAGE_RESPONSE_JSON = "/testPaginatedOutgoingMessage.json";
 	
 	@InjectMocks
 	OutgoingMessageExceptionsServiceImpl basicModuleService;
@@ -83,7 +94,25 @@ public class OutgoingMessageExceptionsServiceTest {
 
 	@Test
 	public void shouldReturnPaginatedMessages() throws Exception {
-		
+		Integer page = 1;
+		Integer pageSize = 100;
+		String from = "2015-09-09";
+		String v = "part";
+		SortingFieldName sort = SortingFieldName.TIMESTAMP;
+		SortingOrder order = SortingOrder.DESC;
+		MessageType type = null;
+		Boolean failed = true;
+
+		OutgoingMessageStringToDateConverter converter = new OutgoingMessageStringToDateConverter();
+
+		when(dao.getPaginatedMessages(page, pageSize, converter.convert(from), sort, order, type, failed)).
+				thenReturn(prepareDummyPaginatedOutgoingMessages());
+
+		String expected = readJsonFromFile(OUTGOING_PAGINATED_MESSAGE_RESPONSE_JSON);
+		String fetched = basicModuleService.getPaginatedMessages(page, pageSize, converter.convert(from), v, sort, order,
+				type, failed);
+
+		assertEquals(expected, fetched);
 	}
 	
 	private OutgoingMessage prepareDummyOutgoingMessage() {
@@ -91,6 +120,20 @@ public class OutgoingMessageExceptionsServiceTest {
 		        "testFailureReason", "testDestination", "testType", false);
 		
 		return outgoingMessage;
+	}
+
+	private List<OutgoingMessage> prepareDummyPaginatedOutgoingMessages() {
+		List<OutgoingMessage> dummyMessages = new ArrayList<>();
+
+		dummyMessages.add( new OutgoingMessage(1, 1, "Message 1", new Timestamp(1444428000000L),
+				"NullPointerException", "Gdansk", "XDSb", true));
+		dummyMessages.add( new OutgoingMessage(2, 1, "Message 2", new Timestamp(1449874800000L),
+				"IllegalArgumentException", "Seattle", "PDQ", true));
+
+		dummyMessages.get(0).getOwner().setUuid("a7983935-656d-11e7-9259-2047477501aa");
+		dummyMessages.get(1).getOwner().setUuid("a7983935-656d-11e7-9259-2047477501aa");
+
+		return dummyMessages;
 	}
 	
 	private String readJsonFromFile(String filename) throws Exception {
