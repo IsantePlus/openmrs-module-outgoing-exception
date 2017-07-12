@@ -13,9 +13,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import org.openmrs.annotation.Authorized;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
-import org.openmrs.module.outgoingmessageexceptions.OutgoingMessageExceptionsConfig;
 import org.openmrs.module.outgoingmessageexceptions.OutgoingMessage;
+import org.openmrs.module.outgoingmessageexceptions.OutgoingMessageExceptionsConfig;
+import org.openmrs.module.outgoingmessageexceptions.api.model.enums.MessageType;
+import org.openmrs.module.outgoingmessageexceptions.api.model.enums.SortingFieldName;
+import org.openmrs.module.outgoingmessageexceptions.api.model.enums.SortingOrder;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
+import java.util.List;
 
 /**
  * The main service of this module, which is exposed for other modules. See
@@ -58,4 +64,44 @@ public interface OutgoingMessageExceptionsService extends OpenmrsService {
 	@Authorized()
 	@Transactional(readOnly = true)
 	String getMessageById(Integer id) throws APIException, JsonProcessingException;
+	
+	/**
+	 * Fetches messages with pagination, given order and type. When v parameter equals "full" the
+	 * pagination is ignored and all messages are returned. It can be called by any authenticated
+	 * user.
+	 * 
+	 * @param page number of pagination page
+	 * @param pageSize a pagination page size
+	 * @param from a date from which the messages will be fetched
+	 * @param v a scope parameter. If equals "full" other parameters, except from, will be ignored
+	 *            and all matching messages will be fetched.
+	 * @param sortingFieldName a field to sort by
+	 * @param order the sorting order
+	 * @param type a message type
+	 * @param failed
+	 * @return a list of fetched messages
+	 */
+	@Authorized
+	@Transactional(readOnly = true)
+	String getPaginatedMessages(Integer page, Integer pageSize, LocalDate from, String v, SortingFieldName sortingFieldName,
+	        SortingOrder order, MessageType type, Boolean failed);
+	
+	/**
+	 * Fetches all messages from given date. It can be called by any authenticated user.
+	 * 
+	 * @param from a date from which the messages will be fetched
+	 * @return a list of fetched messages
+	 */
+	@Authorized
+	@Transactional(readOnly = true)
+	List<OutgoingMessage> getAllMessagesFrom(LocalDate from);
+	
+	/**
+	 * Fetches all outgoingMessages.It can be called by any authenticated user.
+	 * 
+	 * @return list of all messages.
+	 */
+	@Authorized
+	@Transactional(readOnly = true)
+	List<OutgoingMessage> getAllMessages();
 }

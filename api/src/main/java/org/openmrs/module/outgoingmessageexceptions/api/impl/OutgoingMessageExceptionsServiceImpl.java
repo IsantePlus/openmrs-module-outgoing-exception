@@ -12,12 +12,22 @@ package org.openmrs.module.outgoingmessageexceptions.api.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.openmrs.api.APIException;
 import org.openmrs.api.UserService;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.outgoingmessageexceptions.OutgoingMessage;
 import org.openmrs.module.outgoingmessageexceptions.api.OutgoingMessageExceptionsService;
 import org.openmrs.module.outgoingmessageexceptions.api.dao.OutgoingMessageExceptionsDao;
+import org.openmrs.module.outgoingmessageexceptions.api.model.OutgoingMessageList;
+import org.openmrs.module.outgoingmessageexceptions.api.model.enums.MessageType;
+import org.openmrs.module.outgoingmessageexceptions.api.model.enums.SortingFieldName;
+import org.openmrs.module.outgoingmessageexceptions.api.model.enums.SortingOrder;
+import org.openmrs.module.outgoingmessageexceptions.api.utils.OutgoingMessageExceptionsConstants;
+
+import java.time.LocalDate;
+import java.util.List;
 
 public class OutgoingMessageExceptionsServiceImpl extends BaseOpenmrsService implements OutgoingMessageExceptionsService {
 	
@@ -64,5 +74,37 @@ public class OutgoingMessageExceptionsServiceImpl extends BaseOpenmrsService imp
 		mapper.registerModule(module);
 		
 		return mapper.writeValueAsString(outgoingMessage);
+	}
+	
+	@Override
+	public List<OutgoingMessage> getAllMessagesFrom(LocalDate from) {
+		return dao.getAllMessagesFrom(from);
+	}
+	
+	@Override
+	public List<OutgoingMessage> getAllMessages() {
+		return dao.getAllMessages();
+	}
+	
+	@Override
+	public String getPaginatedMessages(Integer page, Integer pageSize, LocalDate from, String v,
+	        SortingFieldName sortingFieldName, SortingOrder order, MessageType type, Boolean failed) {
+		List<OutgoingMessage> results;
+		if (v != null && v.toLowerCase().equals(OutgoingMessageExceptionsConstants.FULL)) {
+			results = (from != null) ? getAllMessagesFrom(from) : getAllMessages();
+		} else {
+			results = dao.getPaginatedMessages(page, pageSize, from, sortingFieldName, order, type, failed);
+		}
+		OutgoingMessageList composedResults = new OutgoingMessageList(page, pageSize, from, results);
+		return serializeResults(composedResults).toString();
+	}
+	
+	private String serializeResults(OutgoingMessageList results) {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.registerTypeAdapter(OutgoingMessage.class, new OutgoingMessage.OutgoingMessageGsonSerializer());
+		Gson gson = gsonBuilder.create();
+		
+		gson.getAdapter(OutgoingMessage.OutgoingMessageGsonSerializer.class);
+		return gson.toJson(results).toString();
 	}
 }

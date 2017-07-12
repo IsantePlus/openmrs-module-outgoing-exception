@@ -13,6 +13,10 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import org.openmrs.BaseOpenmrsData;
 import org.openmrs.User;
 
@@ -25,6 +29,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.Date;
 
 /**
@@ -67,10 +72,12 @@ public class OutgoingMessage extends BaseOpenmrsData {
 	@Basic
 	@Column(name = "failure")
 	private Boolean failure;
-
-	public OutgoingMessage() {}
-
-	public OutgoingMessage(Integer id, Integer ownerId, String messageBody, Date timestamp, String failureReason, String destination, String type, boolean failure) {
+	
+	public OutgoingMessage() {
+	}
+	
+	public OutgoingMessage(Integer id, Integer ownerId, String messageBody, Date timestamp, String failureReason,
+	    String destination, String type, boolean failure) {
 		this.id = id;
 		this.owner = new User(ownerId);
 		this.messageBody = messageBody;
@@ -178,12 +185,33 @@ public class OutgoingMessage extends BaseOpenmrsData {
 			jgen.writeStringField("destination", object.destination);
 			jgen.writeStringField("type", object.type);
 			jgen.writeBooleanField("failure", object.failure);
-
-			if(null != object.getOwner()) {
+			
+			if (null != object.getOwner()) {
 				jgen.writeNumberField("owner", object.getOwner().getUserId());
 			}
-
+			
 			jgen.writeEndObject();
+		}
+	}
+	
+	public static class OutgoingMessageGsonSerializer implements JsonSerializer<OutgoingMessage> {
+		
+		@Override
+		public JsonElement serialize(OutgoingMessage src, Type typeOfSrc, JsonSerializationContext context) {
+			JsonObject object = new JsonObject();
+			
+			object.addProperty("id", src.id);
+			if (src.owner != null) {
+				object.addProperty("owner", src.owner.getUuid());
+			}
+			object.addProperty("messageBody", src.messageBody);
+			object.addProperty("timestamp", src.timestamp.toString());
+			object.addProperty("failureReason", src.failureReason);
+			object.addProperty("destination", src.destination);
+			object.addProperty("type", src.type);
+			object.addProperty("failure", src.failure);
+			
+			return object;
 		}
 	}
 }

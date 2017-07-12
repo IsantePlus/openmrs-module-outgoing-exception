@@ -35,11 +35,12 @@ import static org.junit.Assert.*;
  * BaseModuleContextSensitiveTest, thus it is run without the in-memory DB and Spring context.
  */
 public class OutgoingMessageExceptionsServiceTest {
+	
 	private static final String OUTGOING_MESSAGE_RESPONSE_JSON = "/testOutgoingMessage.json";
-
+	
 	@InjectMocks
 	OutgoingMessageExceptionsServiceImpl basicModuleService;
-
+	
 	@Mock
 	OutgoingMessageExceptionsDao dao;
 	
@@ -67,27 +68,31 @@ public class OutgoingMessageExceptionsServiceTest {
 		//Then
 		assertThat(outgoingMessage, hasProperty("owner", is(user)));
 	}
-
+	
 	@Test
 	public void shouldReturnMessageById() throws Exception {
 		Integer testId = 1;
-
+		
 		when(dao.getMessageById(1)).thenReturn(prepareDummyOutgoingMessage());
-
+		
 		String expected = readJsonFromFile(OUTGOING_MESSAGE_RESPONSE_JSON);
 		String fetched = basicModuleService.getMessageById(testId);
-
+		
 		assertEquals(expected, fetched);
 	}
 
+	@Test
+	public void shouldReturnPaginatedMessages() throws Exception {
+		
+	}
+	
 	private OutgoingMessage prepareDummyOutgoingMessage() {
-		OutgoingMessage outgoingMessage = new OutgoingMessage(1, 2, "testMessageBody",
-				new Date(2017, 11, 11), "testFailureReason", "testDestination",
-				"testType", false);
-
+		OutgoingMessage outgoingMessage = new OutgoingMessage(1, 2, "testMessageBody", new Date(2017, 11, 11),
+		        "testFailureReason", "testDestination", "testType", false);
+		
 		return outgoingMessage;
 	}
-
+	
 	private String readJsonFromFile(String filename) throws Exception {
 		Resource resource = new ClassPathResource(filename);
 		String json;
@@ -98,4 +103,3 @@ public class OutgoingMessageExceptionsServiceTest {
 		return json;
 	}
 }
-

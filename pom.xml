@@ -26,6 +26,8 @@
 		<appframeworkVersion>2.10.0</appframeworkVersion>
 		<emrapiVersion>1.21.0</emrapiVersion>
 		<coreappsVersion>1.13.0</coreappsVersion>
+
+		<gsonVersion>2.8.1</gsonVersion>
 	</properties>
 
 	<scm>
@@ -80,6 +82,13 @@
 				<scope>provided</scope>
 			</dependency>
 			<!-- End OpenMRS modules -->
+
+			<dependency>
+				<groupId>com.google.code.gson</groupId>
+				<artifactId>gson</artifactId>
+				<version>${gsonVersion}</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 
