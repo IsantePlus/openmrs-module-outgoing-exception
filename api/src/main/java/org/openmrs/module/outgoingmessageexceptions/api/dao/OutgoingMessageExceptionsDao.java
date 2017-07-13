@@ -11,6 +11,7 @@ package org.openmrs.module.outgoingmessageexceptions.api.dao;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.api.db.hibernate.DbSession;
 import org.openmrs.api.db.hibernate.DbSessionFactory;
@@ -54,10 +55,40 @@ public class OutgoingMessageExceptionsDao {
 	
 	public List<OutgoingMessage> getPaginatedMessages(Integer page, Integer pageSize, LocalDate from,
 	        SortingFieldName sortingFieldName, SortingOrder order, MessageType type, Boolean failed) {
-		Criteria selectCriteria = getSession().createCriteria(OutgoingMessage.class);
+		
+		Criteria selectCriteria = createSelectCriteria(from, sortingFieldName, order, type, failed);
 		
 		selectCriteria.setFirstResult((page - 1) * pageSize);
 		selectCriteria.setMaxResults(pageSize);
+		
+		return (List<OutgoingMessage>) selectCriteria.list();
+	}
+	
+	public List<OutgoingMessage> getAllMessagesFrom(LocalDate from) {
+		return (List<OutgoingMessage>) getSession()
+		        .createCriteria(OutgoingMessage.class)
+		        .add(
+		            Restrictions.ge(OutgoingMessageExceptionsConstants.TIMESTAMP_COLUMN_NAME,
+		                convertLocalDateToTimestamp(from))).list();
+	}
+	
+	public List<OutgoingMessage> getAllMessages() {
+		return (List<OutgoingMessage>) getSession().createCriteria(OutgoingMessage.class).list();
+	}
+	
+	public Long getCountOfMessages(LocalDate from, SortingFieldName sortingFieldName, SortingOrder order, MessageType type,
+	        Boolean failed) {
+		return (Long) createSelectCriteria(from, sortingFieldName, order, type, failed)
+		        .setProjection(Projections.rowCount()).list().get(0);
+	}
+	
+	private Date convertLocalDateToTimestamp(LocalDate localDate) {
+		return Timestamp.valueOf(localDate.atStartOfDay());
+	}
+	
+	private Criteria createSelectCriteria(LocalDate from, SortingFieldName sortingFieldName, SortingOrder order,
+	        MessageType type, Boolean failed) {
+		Criteria selectCriteria = getSession().createCriteria(OutgoingMessage.class);
 		
 		if (from != null) {
 			selectCriteria.add(Restrictions.ge(OutgoingMessageExceptionsConstants.TIMESTAMP_COLUMN_NAME,
@@ -83,22 +114,6 @@ public class OutgoingMessageExceptionsDao {
 			selectCriteria.add(Restrictions.eq(OutgoingMessageExceptionsConstants.FAILURE_COLUMN_NAME, true));
 		}
 		
-		return (List<OutgoingMessage>) selectCriteria.list();
-	}
-	
-	public List<OutgoingMessage> getAllMessagesFrom(LocalDate from) {
-		return (List<OutgoingMessage>) getSession()
-		        .createCriteria(OutgoingMessage.class)
-		        .add(
-		            Restrictions.ge(OutgoingMessageExceptionsConstants.TIMESTAMP_COLUMN_NAME,
-		                convertLocalDateToTimestamp(from))).list();
-	}
-	
-	public List<OutgoingMessage> getAllMessages() {
-		return (List<OutgoingMessage>) getSession().createCriteria(OutgoingMessage.class).list();
-	}
-	
-	private Date convertLocalDateToTimestamp(LocalDate localDate) {
-		return Timestamp.valueOf(localDate.atStartOfDay());
+		return selectCriteria;
 	}
 }

@@ -46,7 +46,7 @@ import static org.mockito.Mockito.when;
 public class OutgoingMessageExceptionsServiceTest {
 	
 	private static final String OUTGOING_MESSAGE_RESPONSE_JSON = "/testOutgoingMessage.json";
-
+	
 	private static final String OUTGOING_PAGINATED_MESSAGE_RESPONSE_JSON = "/testPaginatedOutgoingMessage.json";
 	
 	@InjectMocks
@@ -91,7 +91,7 @@ public class OutgoingMessageExceptionsServiceTest {
 		
 		assertEquals(expected, fetched);
 	}
-
+	
 	@Test
 	public void shouldReturnPaginatedMessages() throws Exception {
 		Integer page = 1;
@@ -102,16 +102,17 @@ public class OutgoingMessageExceptionsServiceTest {
 		SortingOrder order = SortingOrder.DESC;
 		MessageType type = null;
 		Boolean failed = true;
-
+		
 		OutgoingMessageStringToDateConverter converter = new OutgoingMessageStringToDateConverter();
-
-		when(dao.getPaginatedMessages(page, pageSize, converter.convert(from), sort, order, type, failed)).
-				thenReturn(prepareDummyPaginatedOutgoingMessages());
-
+		
+		when(dao.getPaginatedMessages(page, pageSize, converter.convert(from), sort, order, type, failed)).thenReturn(
+		    prepareDummyPaginatedOutgoingMessages());
+		when(dao.getCountOfMessages(converter.convert(from), sort, order, type, failed)).thenReturn(2L);
+		
 		String expected = readJsonFromFile(OUTGOING_PAGINATED_MESSAGE_RESPONSE_JSON);
 		String fetched = basicModuleService.getPaginatedMessages(page, pageSize, converter.convert(from), v, sort, order,
-				type, failed);
-
+		    type, failed);
+		
 		assertEquals(expected, fetched);
 	}
 	
@@ -121,7 +122,7 @@ public class OutgoingMessageExceptionsServiceTest {
 		
 		return outgoingMessage;
 	}
-
+	
 	private List<OutgoingMessage> prepareDummyPaginatedOutgoingMessages() {
 		List<OutgoingMessage> dummyMessages = new ArrayList<>();
 
@@ -131,7 +132,10 @@ public class OutgoingMessageExceptionsServiceTest {
 				"IllegalArgumentException", "Seattle", "PDQ", true));
 
 		dummyMessages.get(0).getOwner().setUuid("a7983935-656d-11e7-9259-2047477501aa");
+		dummyMessages.get(0).getOwner().setUsername("Tester 1");
+
 		dummyMessages.get(1).getOwner().setUuid("a7983935-656d-11e7-9259-2047477501aa");
+		dummyMessages.get(1).getOwner().setUsername("Tester 2");
 
 		return dummyMessages;
 	}

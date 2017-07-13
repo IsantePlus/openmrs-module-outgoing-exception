@@ -202,13 +202,14 @@ public class OutgoingMessage extends BaseOpenmrsData {
 			
 			object.addProperty("id", src.id);
 			if (src.owner != null) {
-				object.addProperty("owner", src.owner.getUuid());
+				JsonObject owner = new JsonObject();
+				
+				owner.addProperty("uuid", src.owner.getUuid());
+				owner.addProperty("name", src.owner.getUsername());
+				
+				object.add("user", owner);
 			}
-			object.addProperty("messageBody", src.messageBody);
 			object.addProperty("timestamp", src.timestamp.toString());
-			object.addProperty("failureReason", src.failureReason);
-			object.addProperty("destination", src.destination);
-			object.addProperty("type", src.type);
 			object.addProperty("failure", src.failure);
 			
 			return object;

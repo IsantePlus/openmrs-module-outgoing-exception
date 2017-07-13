@@ -9,7 +9,7 @@ import java.util.List;
 public final class OutgoingMessageList {
 	
 	@Expose
-	private final Integer total;
+	private final Long total;
 	
 	@Expose
 	private final Integer page;
@@ -23,15 +23,15 @@ public final class OutgoingMessageList {
 	@Expose
 	private final List<OutgoingMessage> data;
 	
-	public OutgoingMessageList(Integer page, Integer pageSize, LocalDate from, List<OutgoingMessage> data) {
-		this.total = data.size();
+	public OutgoingMessageList(Long total, Integer page, Integer pageSize, LocalDate from, List<OutgoingMessage> data) {
+		this.total = total;
 		this.page = page;
 		this.pageSize = pageSize;
 		this.from = from;
 		this.data = data;
 	}
 	
-	public Integer getTotal() {
+	public Long getTotal() {
 		return total;
 	}
 	
