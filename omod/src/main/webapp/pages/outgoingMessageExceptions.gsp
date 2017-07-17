@@ -11,28 +11,28 @@
 
 <div id="apps">
     
-    <a class="button app big" href="${ ui.pageLink("outgoing-message-exceptions", "pix") }"
-            id="outgoing-message-exceptions.pix">
+    <a class="button app big" href="${ ui.pageLink("outgoingmessageexceptions", "pix") }"
+            id="outgoingmessageexceptions.pix">
         <i class="icon-calendar"></i>
-        ${ ui.message("outgoing-message-exceptions.pix.label") }
+        ${ ui.message("outgoingmessageexceptions.pix.label") }
     </a>
     
-    <a class="button app big" href="${ ui.pageLink("outgoing-message-exceptions", "pdq") }"
-            id="outgoing-message-exceptions.pdq">
+    <a class="button app big" href="${ ui.pageLink("outgoingmessageexceptions", "pdq") }"
+            id="outgoingmessageexceptions.pdq">
         <i class="icon-calendar"></i>
-        ${ ui.message("outgoing-message-exceptions.pdq.label") }
+        ${ ui.message("outgoingmessageexceptions.pdq.label") }
     </a>
     
-    <a class="button app big" href="${ ui.pageLink("outgoing-message-exceptions", "xdsb") }"
-            id="outgoing-message-exceptions.xdsb">
+    <a class="button app big" href="${ ui.pageLink("outgoingmessageexceptions", "xdsb") }"
+            id="outgoingmessageexceptions.xdsb">
         <i class="icon-calendar"></i>
-        ${ ui.message("outgoing-message-exceptions.xdsb.label") }
+        ${ ui.message("outgoingmessageexceptions.xdsb.label") }
     </a>
     
-    <a class="button app big" href="${ ui.pageLink("outgoing-message-exceptions", "ccd") }"
-            id="outgoing-message-exceptions.ccd">
+    <a class="button app big" href="${ ui.pageLink("outgoingmessageexceptions", "ccd") }"
+            id="outgoingmessageexceptions.ccd">
         <i class="icon-calendar"></i>
-        ${ ui.message("outgoing-message-exceptions.ccd.label") }
+        ${ ui.message("outgoingmessageexceptions.ccd.label") }
     </a>
 
 </div>

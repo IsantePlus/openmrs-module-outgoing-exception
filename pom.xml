@@ -9,7 +9,7 @@
     </parent>
 
 	<groupId>org.openmrs.module</groupId>
-	<artifactId>outgoing-message-exceptions</artifactId>
+	<artifactId>outgoingmessageexceptions</artifactId>
 	<version>1.0.0</version>
 	<packaging>pom</packaging>
 	<name>Outgoing Message Exceptions</name>
