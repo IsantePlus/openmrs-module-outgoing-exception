@@ -18,13 +18,9 @@ public class ExceptionDetailsFragmentController {
 	        @FragmentParam(value = "messageId", required = true) Integer messageId) throws IOException {
 		String message = outgoingMessageExceptionsService.getMessageById(messageId);
 		
-		if (StringUtils.isBlank(message))
-			model.addAttribute("outgoingMessage", null);
-		else {
-			ObjectMapper mapper = new ObjectMapper();
-			mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS"));
-			OutgoingMessage outgoingMessage = mapper.readValue(message, OutgoingMessage.class);
-			model.addAttribute("outgoingMessage", outgoingMessage);
-		}
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS"));
+		OutgoingMessage outgoingMessage = mapper.readValue(message, OutgoingMessage.class);
+		model.addAttribute("outgoingMessage", outgoingMessage);
 	}
 }

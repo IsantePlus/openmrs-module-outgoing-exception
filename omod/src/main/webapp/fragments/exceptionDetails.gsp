@@ -3,7 +3,7 @@
 %>
 
 <table>
-    <% if (outgoingMessage) { %>
+    <% if (outgoingMessage != null) { %>
         <tr>
             <th>${ ui.message(artifactId + ".details.id.label") }</th>
             <td>${ outgoingMessage.id }</td>
