@@ -7,7 +7,7 @@ ui.decorateWith("appui", "standardEmrPage")
         var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
         { label: "${ ui.message("outgoingmessageexceptions.label")}",
-            link: "${ui.pageLink("outgoingmessageexceptions", "outgoingMessageExceptions")}"
+            link: "${ ui.pageLink("outgoingmessageexceptions", "outgoingMessageExceptions") }"
         },
         { label: "${ ui.message('outgoingmessageexceptions.xdsb.label') }"}
 ];

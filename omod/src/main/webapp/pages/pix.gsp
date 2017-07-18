@@ -13,7 +13,7 @@ ui.decorateWith("appui", "standardEmrPage")
 </script>
 <!-- example -->
 <div id="apps">
-        <a class="button app big" href="${ ui.pageLink("outgoingmessageexceptions", "details", [messageId: 7, backPage: "pix"]) }"
+        <a class="button app big" href="${ ui.pageLink("outgoingmessageexceptions", "details", [messageId: 7, backPage: "pix", backPageIndex: 1]) }"
                 id="messageDetails">
             <i class="icon-calendar"></i>
             ${ ui.message("outgoingmessageexceptions.details.label") }

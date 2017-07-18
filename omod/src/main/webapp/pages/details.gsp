@@ -14,5 +14,5 @@
 </script>
 
 <div id="apps">
-    ${ ui.includeFragment(artifactId, "exceptionDetails", [messageId: param.messageId]) }
+    ${ ui.includeFragment(artifactId, "exceptionDetails", [messageId: param.messageId, pageIndex: param.backPageIndex]) }
 </div>
