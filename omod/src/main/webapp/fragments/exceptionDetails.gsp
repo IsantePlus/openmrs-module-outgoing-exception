@@ -1,5 +1,5 @@
 <%
-    def artifactId = "outgoingmessageexceptions"
+    def artifactId = "outgoing-message-exceptions"
 %>
 
 <table>

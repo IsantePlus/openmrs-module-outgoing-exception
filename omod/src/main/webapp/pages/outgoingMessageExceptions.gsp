@@ -5,34 +5,34 @@
 <script type="text/javascript">
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
-        { label: "${ ui.message("Outgoing Message Exceptions")}"}
+        { label: "${ ui.message("Outgoing Message Exceptions")}" }
     ];
 </script>
 
 <div id="apps">
     
-    <a class="button app big" href="${ ui.pageLink("outgoingmessageexceptions", "pix") }"
-            id="outgoingmessageexceptions.pix">
+    <a class="button app big" href="${ ui.pageLink("outgoing-message-exceptions", "pix") }"
+            id="outgoing-message-exceptions.pix">
         <i class="icon-calendar"></i>
-        ${ ui.message("outgoingmessageexceptions.pix.label") }
+        ${ ui.message("outgoing-message-exceptions.pix.label") }
     </a>
     
-    <a class="button app big" href="${ ui.pageLink("outgoingmessageexceptions", "pdq") }"
-            id="outgoingmessageexceptions.pdq">
+    <a class="button app big" href="${ ui.pageLink("outgoing-message-exceptions", "pdq") }"
+            id="outgoing-message-exceptions.pdq">
         <i class="icon-calendar"></i>
-        ${ ui.message("outgoingmessageexceptions.pdq.label") }
+        ${ ui.message("outgoing-message-exceptions.pdq.label") }
     </a>
     
-    <a class="button app big" href="${ ui.pageLink("outgoingmessageexceptions", "xdsb") }"
-            id="outgoingmessageexceptions.xdsb">
+    <a class="button app big" href="${ ui.pageLink("outgoing-message-exceptions", "xdsb") }"
+            id="outgoing-message-exceptions.xdsb">
         <i class="icon-calendar"></i>
-        ${ ui.message("outgoingmessageexceptions.xdsb.label") }
+        ${ ui.message("outgoing-message-exceptions.xdsb.label") }
     </a>
     
-    <a class="button app big" href="${ ui.pageLink("outgoingmessageexceptions", "ccd") }"
-            id="outgoingmessageexceptions.ccd">
+    <a class="button app big" href="${ ui.pageLink("outgoing-message-exceptions", "ccd") }"
+            id="outgoing-message-exceptions.ccd">
         <i class="icon-calendar"></i>
-        ${ ui.message("outgoingmessageexceptions.ccd.label") }
+        ${ ui.message("outgoing-message-exceptions.ccd.label") }
     </a>
 
 </div>

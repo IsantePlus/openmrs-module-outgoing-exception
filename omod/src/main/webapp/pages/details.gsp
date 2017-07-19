@@ -1,6 +1,6 @@
 <%
     ui.decorateWith("appui", "standardEmrPage")
-    def artifactId = "outgoingmessageexceptions"
+    def artifactId = "outgoing-message-exceptions"
 %>
 
 <script type="text/javascript">
@@ -9,10 +9,10 @@
         { label: "${ ui.message(artifactId + '.' + param.backPage[0] + '.label') }",
             link: "${ ui.pageLink(artifactId, param.backPage[0]) }"
         },
-        { label: "${ ui.message(artifactId + '.details.label') }"}
+        { label: "${ ui.message(artifactId + '.details.label') }" }
     ];
 </script>
 
 <div id="apps">
-    ${ ui.includeFragment(artifactId, "exceptionDetails", [messageId: param.messageId, pageIndex: param.backPageIndex]) }
+    ${ ui.includeFragment("outgoingmessageexceptions", "exceptionDetails", [messageId: param.messageId, pageIndex: param.backPageIndex]) }
 </div>

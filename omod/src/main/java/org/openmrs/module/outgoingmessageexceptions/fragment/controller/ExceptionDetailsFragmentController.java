@@ -1,7 +1,6 @@
 package org.openmrs.module.outgoingmessageexceptions.fragment.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.lang.StringUtils;
 import org.openmrs.module.outgoingmessageexceptions.OutgoingMessage;
 import org.openmrs.module.outgoingmessageexceptions.api.OutgoingMessageExceptionsService;
 import org.openmrs.ui.framework.annotation.FragmentParam;
