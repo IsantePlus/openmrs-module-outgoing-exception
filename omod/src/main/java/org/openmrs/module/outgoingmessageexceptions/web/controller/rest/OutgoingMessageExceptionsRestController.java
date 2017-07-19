@@ -49,7 +49,8 @@ public class OutgoingMessageExceptionsRestController {
 	        @RequestParam(value = "type", required = false) String type,
 	        @RequestParam(value = "failed", defaultValue = "false") Boolean failed) {
 		
-		SortingFieldName sortingFieldName = sortField != null ? SortingFieldName.valueOf(sortField.toUpperCase()) : null;
+		SortingFieldName sortingFieldName = sortField.equals("user.name") ? SortingFieldName.OWNER : SortingFieldName
+		        .valueOf(sortField.toUpperCase());
 		SortingOrder sortingOrder = sortOrder != null ? SortingOrder.valueOf(sortOrder.toUpperCase()) : null;
 		MessageType messageType = type != null ? MessageType.valueOf(type.toUpperCase()) : null;
 		

@@ -30,7 +30,7 @@ jQuery(document).ready(function() {
         fields: [
             {title: titles[0], name: "timestamp", type: "text", sorting: true, filtering: true},
             {title: titles[1], name: "destination" , type: "text", sorting: true, filtering: true},
-            {title: titles[2], name: "user.uuid" , type: "text", textField: "uuid", filtering: true},
+            {title: titles[2], name: "user.name" , type: "text", textField: "uuid", filtering: true},
             {
                 title: titles[3], name: "failure" , type: "text", sorting: true, filtering: true, align: "center",
                 itemTemplate: function(value) {
