@@ -209,6 +209,7 @@ public class OutgoingMessage extends BaseOpenmrsData {
 				
 				object.add("user", owner);
 			}
+			object.addProperty("destination", src.destination);
 			object.addProperty("timestamp", src.timestamp.toString());
 			object.addProperty("failure", src.failure);
 			

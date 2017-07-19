@@ -40,19 +40,22 @@ public class OutgoingMessageExceptionsRestController {
 	
 	@RequestMapping(value = "/messages", method = RequestMethod.GET)
 	@ResponseBody
-	public String getMessagesList(@RequestParam(value = "page", defaultValue = "1") Integer page,
+	public String getMessagesList(@RequestParam(value = "pageIndex", defaultValue = "1") Integer pageIndex,
 	        @RequestParam(value = "pageSize", defaultValue = "100") Integer pageSize,
 	        @RequestParam(value = "from", required = false) String from,
 	        @RequestParam(value = "v", required = false) String v,
-	        @RequestParam(value = "sort", defaultValue = "TIMESTAMP") SortingFieldName sort,
-	        @RequestParam(value = "order", defaultValue = "DESC") SortingOrder order,
-	        @RequestParam(value = "type", required = false) MessageType type,
+	        @RequestParam(value = "sortField", defaultValue = "TIMESTAMP") String sortField,
+	        @RequestParam(value = "sortOrder", defaultValue = "DESC") String sortOrder,
+	        @RequestParam(value = "type", required = false) String type,
 	        @RequestParam(value = "failed", defaultValue = "false") Boolean failed) {
 		
-		OutgoingMessageStringToDateConverter converter = new OutgoingMessageStringToDateConverter();
+		SortingFieldName sortingFieldName = sortField != null ? SortingFieldName.valueOf(sortField.toUpperCase()) : null;
+		SortingOrder sortingOrder = sortOrder != null ? SortingOrder.valueOf(sortOrder.toUpperCase()) : null;
+		MessageType messageType = type != null ? MessageType.valueOf(type.toUpperCase()) : null;
 		
-		return outgoingMessageExceptionsService.getPaginatedMessages(page, pageSize, converter.convert(from), v, sort,
-		    order, type, failed);
+		OutgoingMessageStringToDateConverter converter = new OutgoingMessageStringToDateConverter();
+		return outgoingMessageExceptionsService.getPaginatedMessages(pageIndex, pageSize, converter.convert(from), v,
+		    sortingFieldName, sortingOrder, messageType, failed);
 	}
 	
 	@RequestMapping(value = "/messages/{id}", method = RequestMethod.GET, produces = "application/json")
