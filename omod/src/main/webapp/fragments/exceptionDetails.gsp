@@ -9,7 +9,7 @@
             <td>${ outgoingMessage.id }</td>
         </tr><tr>
             <th>${ ui.message(artifactId + ".details.messageBody.label") }</th>
-            <td style="width=70%">${ outgoingMessage.messageBody }</td>
+            <td style="width=80%">${ outgoingMessage.messageBody }</td>
         </tr><tr>
             <th>${ ui.message(artifactId + ".details.timestamp.label") }</th>
             <td>${ outgoingMessage.timestamp }</td>
