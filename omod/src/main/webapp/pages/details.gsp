@@ -7,7 +7,7 @@
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
         { label: "${ ui.message(artifactId + '.' + param.backPage[0] + '.label') }",
-            link: "${ ui.pageLink(artifactId, param.backPage[0]) }"
+            link: "${ ui.pageLink(artifactId, param.backPage[0], [pageIndex: param.backPageIndex]) }"
         },
         { label: "${ ui.message(artifactId + '.details.label') }" }
     ];

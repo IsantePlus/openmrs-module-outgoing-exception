@@ -1,21 +1,24 @@
 <%
 ui.decorateWith("appui", "standardEmrPage")
 %>
+<% ui.includeJavascript("outgoing-message-exceptions", "outgoing.message.controller.js") %>
+<% ui.includeJavascript("outgoing-message-exceptions", "jsGrid.min.js") %>
 
 <script type="text/javascript">
-        var breadcrumbs = [
+    var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
-        { label: "${ ui.message("outgoing-message-exceptions.label") }",
+        {
+            label: "${ ui.message("outgoing-message-exceptions.label") }",
             link: "${ ui.pageLink("outgoing-message-exceptions", "outgoingMessageExceptions") }"
         },
         { label: "${ ui.message('outgoing-message-exceptions.pix.label') }" }
-];
+    ];
+    var titles = [
+        "${ ui.message('outgoing-message-exceptions.message.header.timestamp') }",
+        "${ ui.message('outgoing-message-exceptions.message.header.destination') }",
+        "${ ui.message('outgoing-message-exceptions.message.header.user') }",
+        "${ ui.message('outgoing-message-exceptions.message.header.failure') }"
+    ];
 </script>
-<!-- example -->
-<div id="apps">
-        <a class="button app big" href="${ ui.pageLink("outgoing-message-exceptions", "details", [messageId: 7, backPage: "pix", backPageIndex: 1]) }"
-                id="messageDetails">
-            <i class="icon-calendar"></i>
-            ${ ui.message("outgoing-message-exceptions.details.label") }
-        </a>
-</div>
+
+<div id="jsGrid" class="jsgrid" style="position: relative; height: auto; width: 100%;"></div>
