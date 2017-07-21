@@ -15,7 +15,7 @@
             <td>${ outgoingMessage.id }</td>
         </tr><tr>
             <th class="label">${ ui.message(artifactId + ".details.messageBody.label") }</th>
-            <td><textarea style="width:100%">${ outgoingMessage.messageBody }</textarea></td>
+            <td><textarea style="width:100%" disabled>${ outgoingMessage.messageBody }</textarea></td>
         </tr><tr>
             <th class="label">${ ui.message(artifactId + ".details.timestamp.label") }</th>
             <td>${ outgoingMessage.timestamp }</td>
