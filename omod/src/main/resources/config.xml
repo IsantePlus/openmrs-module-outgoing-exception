@@ -18,6 +18,13 @@
 	<!-- /Base Module Properties -->
 	
 	<require_version>2.0.5</require_version>
+
+
+	<require_modules>
+		<require_module>
+			org.openmrs.module.registrationcore
+		</require_module>
+	</require_modules>
 	
 	<!-- Extensions -->
 	<extension>
@@ -27,6 +34,7 @@
 
 	<aware_of_modules>
 		<aware_of_module>org.openmrs.module.legacyui</aware_of_module>
+		<aware_of_module>org.openmrs.module.registrationcore</aware_of_module>
 	</aware_of_modules>
 	
 	
