@@ -25,4 +25,17 @@
 	<bean class="org.openmrs.ui.framework.StandardModuleUiConfiguration">
 		<property name="moduleId" value="${project.parent.artifactId}"/>
 	</bean>
+
+	<!-- set the proper path to the fragment controller (without '-' chars) -->
+	<bean class="org.openmrs.ui.framework.fragment.FragmentFactory">
+		<property name="controllerProviders">
+			<map>
+				<entry key="outgoingmessageexceptions">
+					<bean class="org.openmrs.ui.framework.fragment.ConventionBasedClasspathFragmentControllerProvider">
+						<property name="basePackage" value="org.openmrs.module.outgoingmessageexceptions.fragment.controller"/>
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
 </beans>

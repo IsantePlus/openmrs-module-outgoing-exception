@@ -1,4 +1,8 @@
 jQuery(document).ready(function() {
+    var messageType = window.location.pathname.substring(
+        window.location.pathname.lastIndexOf('/') + 1,
+        window.location.pathname.lastIndexOf(".")
+    );
     $("#jsGrid").jsGrid({
         height: "auto",
         width: "100%",
@@ -9,14 +13,14 @@ jQuery(document).ready(function() {
         autoload: true,
         pageSize: 10,
         pageButtonCount: 5,
+        pageIndex: getPageIndex(),
 
         controller: {
             loadData: function (filter) {
                 var d = $.Deferred();
 
                 jQuery.ajax({
-                    url: "/openmrs/ws/rest/isanteplus/messages?type=" +
-                    window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1, window.location.pathname.lastIndexOf(".")),
+                    url: "/openmrs/ws/rest/isanteplus/messages?type=" + messageType,
                     type: "GET",
                     dataType: "json",
                     data: filter
@@ -28,6 +32,7 @@ jQuery(document).ready(function() {
             }
         },
         fields: [
+            {name: 'id', type: "number", visible: false},
             {title: titles[0], name: "timestamp", type: "text", sorting: true, filtering: true},
             {title: titles[1], name: "destination" , type: "text", sorting: true, filtering: true},
             {title: titles[2], name: "user.name" , type: "text", textField: "uuid", filtering: true},
@@ -43,6 +48,24 @@ jQuery(document).ready(function() {
                     return result;
                 }
             }
-        ]
+        ],
+        rowClick: function(args) {
+            $("#jsGrid").jsGrid("fieldOption", "id", "visible", true);
+            var $row = this.rowByItem(args.item);
+            var messageId = $row.children().first().text();
+            var pageIndex = $("#jsGrid").jsGrid("option", "pageIndex");
+            window.location.href="details.page?messageId=" + messageId + "&backPage=" + messageType + "&backPageIndex=" + pageIndex;
+            $("#jsGrid").jsGrid("fieldOption", "id", "visible", false);
+        }
+
     });
 });
+
+function getPageIndex(){
+    var url = new URL(window.location.href);
+    var param = url.searchParams.get("pageIndex");
+	if (param == null) {
+		return 1;
+	}
+	return parseInt(param);
+}
