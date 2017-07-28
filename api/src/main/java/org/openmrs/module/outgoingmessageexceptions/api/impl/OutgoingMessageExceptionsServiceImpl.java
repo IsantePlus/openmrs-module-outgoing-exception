@@ -20,6 +20,8 @@ import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.outgoingmessageexceptions.OutgoingMessage;
 import org.openmrs.module.outgoingmessageexceptions.api.OutgoingMessageExceptionsService;
 import org.openmrs.module.outgoingmessageexceptions.api.dao.OutgoingMessageExceptionsDao;
+import org.openmrs.module.outgoingmessageexceptions.api.exceptions.BadRequestException;
+import org.openmrs.module.outgoingmessageexceptions.api.exceptions.NotFoundException;
 import org.openmrs.module.outgoingmessageexceptions.api.model.OutgoingMessageList;
 import org.openmrs.module.outgoingmessageexceptions.api.model.enums.MessageType;
 import org.openmrs.module.outgoingmessageexceptions.api.model.enums.SortingFieldName;
@@ -27,6 +29,8 @@ import org.openmrs.module.outgoingmessageexceptions.api.model.enums.SortingOrder
 import org.openmrs.module.outgoingmessageexceptions.api.utils.OutgoingMessageExceptionsConstants;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 public class OutgoingMessageExceptionsServiceImpl extends BaseOpenmrsService implements OutgoingMessageExceptionsService {
@@ -77,6 +81,21 @@ public class OutgoingMessageExceptionsServiceImpl extends BaseOpenmrsService imp
 	}
 	
 	@Override
+	public void retryMessage(Integer id, LocalDate retryLocalDate, String retryReason) throws NotFoundException,
+	        BadRequestException {
+		OutgoingMessage outgoingMessage = dao.getMessageById(id);
+		if (outgoingMessage == null) {
+			throw new NotFoundException();
+		} else if (outgoingMessage.getRetried()) {
+			throw new BadRequestException();
+		}
+		outgoingMessage.setRetried(true);
+		outgoingMessage.setRetryTimestamp(convertLocalDateToDate(retryLocalDate));
+		outgoingMessage.setRetryReason(retryReason);
+		saveItem(outgoingMessage);
+	}
+	
+	@Override
 	public List<OutgoingMessage> getAllMessagesFrom(LocalDate from) {
 		return dao.getAllMessagesFrom(from);
 	}
@@ -107,5 +126,9 @@ public class OutgoingMessageExceptionsServiceImpl extends BaseOpenmrsService imp
 		
 		gson.getAdapter(OutgoingMessage.OutgoingMessageGsonSerializer.class);
 		return gson.toJson(results).toString();
+	}
+	
+	private Date convertLocalDateToDate(LocalDate localDate) {
+		return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 	}
 }

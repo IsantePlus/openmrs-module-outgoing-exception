@@ -4,6 +4,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 /**
  * Converter which is changing date String in ISO format (yyyy-MM-dd) to LocalDate object.
