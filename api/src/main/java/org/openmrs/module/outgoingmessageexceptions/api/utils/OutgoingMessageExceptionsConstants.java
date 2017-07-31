@@ -12,4 +12,5 @@ public class OutgoingMessageExceptionsConstants {
 	
 	public static final String FAILURE_COLUMN_NAME = "failure";
 	
+	public static final String RETRIED_COLUMN_NAME = "retried";
 }

@@ -105,9 +105,9 @@ public class OutgoingMessageExceptionsServiceTest {
 		
 		OutgoingMessageStringToDateConverter converter = new OutgoingMessageStringToDateConverter();
 		
-		when(dao.getPaginatedMessages(page, pageSize, converter.convert(from), sort, order, type, failed)).thenReturn(
-		    prepareDummyPaginatedOutgoingMessages());
-		when(dao.getCountOfMessages(converter.convert(from), sort, order, type, failed)).thenReturn(2L);
+		when(dao.getPaginatedMessages(page, pageSize, converter.convert(from), sort, order, type, failed, false))
+		        .thenReturn(prepareDummyPaginatedOutgoingMessages());
+		when(dao.getCountOfMessages(converter.convert(from), sort, order, type, failed, false)).thenReturn(2L);
 		
 		String expected = readJsonFromFile(OUTGOING_PAGINATED_MESSAGE_RESPONSE_JSON);
 		String fetched = basicModuleService.getPaginatedMessages(page, pageSize, converter.convert(from), v, sort, order,

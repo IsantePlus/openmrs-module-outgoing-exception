@@ -10,6 +10,8 @@
 package org.openmrs.module.outgoingmessageexceptions.api.dao;
 
 import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -44,7 +46,24 @@ public class OutgoingMessageExceptionsDao {
 	}
 	
 	public OutgoingMessage saveItem(OutgoingMessage outgoingMessage) {
-		getSession().saveOrUpdate(outgoingMessage);
+		Session session = sessionFactory.getHibernateSessionFactory().openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.saveOrUpdate(outgoingMessage);
+			tx.commit();
+		}
+		catch (Exception ex) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			throw ex;
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
 		return outgoingMessage;
 	}
 	
@@ -54,9 +73,9 @@ public class OutgoingMessageExceptionsDao {
 	}
 	
 	public List<OutgoingMessage> getPaginatedMessages(Integer page, Integer pageSize, LocalDate from,
-	        SortingFieldName sortingFieldName, SortingOrder order, MessageType type, Boolean failed) {
+	        SortingFieldName sortingFieldName, SortingOrder order, MessageType type, Boolean failed, Boolean retried) {
 		
-		Criteria selectCriteria = createSelectCriteria(from, sortingFieldName, order, type, failed);
+		Criteria selectCriteria = createSelectCriteria(from, sortingFieldName, order, type, failed, retried);
 		
 		selectCriteria.setFirstResult((page - 1) * pageSize);
 		selectCriteria.setMaxResults(pageSize);
@@ -77,8 +96,8 @@ public class OutgoingMessageExceptionsDao {
 	}
 	
 	public Long getCountOfMessages(LocalDate from, SortingFieldName sortingFieldName, SortingOrder order, MessageType type,
-	        Boolean failed) {
-		return (Long) createSelectCriteria(from, sortingFieldName, order, type, failed)
+	        Boolean failed, Boolean retried) {
+		return (Long) createSelectCriteria(from, sortingFieldName, order, type, failed, retried)
 		        .setProjection(Projections.rowCount()).list().get(0);
 	}
 	
@@ -87,7 +106,7 @@ public class OutgoingMessageExceptionsDao {
 	}
 	
 	private Criteria createSelectCriteria(LocalDate from, SortingFieldName sortingFieldName, SortingOrder order,
-	        MessageType type, Boolean failed) {
+	        MessageType type, Boolean failed, Boolean retried) {
 		Criteria selectCriteria = getSession().createCriteria(OutgoingMessage.class);
 		
 		if (from != null) {
@@ -112,6 +131,10 @@ public class OutgoingMessageExceptionsDao {
 		
 		if (failed) {
 			selectCriteria.add(Restrictions.eq(OutgoingMessageExceptionsConstants.FAILURE_COLUMN_NAME, true));
+		}
+		
+		if (!retried) {
+			selectCriteria.add(Restrictions.eq(OutgoingMessageExceptionsConstants.RETRIED_COLUMN_NAME, false));
 		}
 		
 		return selectCriteria;
