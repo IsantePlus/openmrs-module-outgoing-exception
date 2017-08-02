@@ -3,6 +3,7 @@ package org.openmrs.module.outgoingmessageexceptions.web.controller.rest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang.StringUtils;
+import org.openmrs.module.outgoingmessageexceptions.RetryRequest;
 import org.openmrs.module.outgoingmessageexceptions.api.OutgoingMessageExceptionsService;
 import org.openmrs.module.outgoingmessageexceptions.api.converter.OutgoingMessageStringToDateConverter;
 import org.openmrs.module.outgoingmessageexceptions.api.exceptions.BadRequestException;
@@ -76,26 +77,23 @@ public class OutgoingMessageExceptionsRestController {
 	}
 	
 	@RequestMapping(value = "/messages/{id}/retry", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity retryMessage(@PathVariable Integer id, @RequestBody(required = false) String retryRequestJson) {
+	public ResponseEntity retryMessage(@PathVariable Integer id, @RequestBody RetryRequest retryRequest) {
 		logger.debug("Set a message with " + id + " id as retried");
 		try {
 			LocalDate timestamp = null;
-			RetryRequest retryRequest = null;
-			if (StringUtils.isBlank(retryRequestJson)) {
+			
+			if (StringUtils.isBlank(retryRequest.getTimestamp()) || StringUtils.isBlank(retryRequest.getResponse())) {
 				throw new BadRequestException();
 			}
 			try {
-				ObjectMapper mapper = new ObjectMapper();
-				retryRequest = mapper.readValue(retryRequestJson, RetryRequest.class);
-
 				OutgoingMessageStringToDateConverter converter = new OutgoingMessageStringToDateConverter();
-				timestamp = converter.convert(retryRequest.timestamp);
+				timestamp = converter.convert(retryRequest.getTimestamp());
 			}
-			catch (DateTimeParseException | IOException e) {
+			catch (DateTimeParseException e) {
 				throw new BadRequestException();
 			}
 			
-			outgoingMessageExceptionsService.retryMessage(id, timestamp, retryRequest.response);
+			outgoingMessageExceptionsService.retryMessage(id, timestamp, retryRequest.getResponse());
 		}
 		catch (BadRequestException e) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -104,28 +102,5 @@ public class OutgoingMessageExceptionsRestController {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity(HttpStatus.OK);
-	}
-	
-	private static class RetryRequest {
-		
-		private String timestamp;
-		
-		private String response;
-		
-		public void setTimestamp(String timestamp) {
-			this.timestamp = timestamp;
-		}
-		
-		public String getTimestamp() {
-			return timestamp;
-		}
-		
-		public void setResponse(String response) {
-			this.response = response;
-		}
-		
-		public String getResponse() {
-			return response;
-		}
 	}
 }
