@@ -11,7 +11,7 @@
         "label": "${project.parent.artifactId}.label",
         "url": "${project.parent.artifactId}/outgoingMessageExceptions.page",
         "icon": "icon-envelope",
-        "requiredPrivilege": "App: coreapps.outgoingMessageExceptions"
+        "requiredPrivilege": "View Outgoing Messages"
       }
     ]
   }

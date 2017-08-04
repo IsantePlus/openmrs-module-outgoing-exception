@@ -26,6 +26,9 @@
 		<require_module>
 			org.openmrs.module.xdssender
 		</require_module>
+		<require_module version="${uiframeworkVersion}">
+			org.openmrs.module.uiframework
+		</require_module>
 	</require_modules>
 
 	<!-- Extensions -->
@@ -40,12 +43,15 @@
 		<aware_of_module>org.openmrs.module.xdssender</aware_of_module>
 	</aware_of_modules>
 
-	<require_modules>
-		<require_module version="${uiframeworkVersion}">
-			org.openmrs.module.uiframework
-		</require_module>
-	</require_modules>
-	
+	<privilege>
+		<name>Get Outgoing Messages</name>
+		<description>Ability to Get Outgoing Messages</description>
+	</privilege>
+
+	<privilege>
+		<name>View Outgoing Messages</name>
+		<description>Ability to View Outgoing Messages</description>
+	</privilege>
 	<!-- AOP
 	<advice>
 		<point>org.openmrs.api.FormService</point>

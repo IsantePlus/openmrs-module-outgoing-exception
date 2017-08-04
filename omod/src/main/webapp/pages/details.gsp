@@ -1,6 +1,7 @@
 <%
     ui.decorateWith("appui", "standardEmrPage")
     def artifactId = "outgoing-message-exceptions"
+    if (context.hasPrivilege("View Outgoing Messages")) {
 %>
 
 <script type="text/javascript">
@@ -16,3 +17,5 @@
 <div id="apps">
     ${ ui.includeFragment("outgoingmessageexceptions", "exceptionDetails", [messageId: param.messageId, pageIndex: param.backPageIndex]) }
 </div>
+
+<% } %>
