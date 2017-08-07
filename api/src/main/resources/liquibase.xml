@@ -15,7 +15,7 @@
  
  	<!-- Uncomment the changeset below if you want to make the OutgoingMessage class persistable, see also OutgoingMessage and OutgoingMessageExceptionsDaoTest -->
 
-	<changeSet id="outgoingmessageexceptions-2016-08-02-12-25" author="Soldevelo">
+	<changeSet id="outgoingmessageexceptions-2017-07-31-14-24" author="Soldevelo">
 		<preConditions onFail="MARK_RAN">
 			<not><tableExists tableName="outgoingmessageexceptions_message"/></not>
 		</preConditions>
@@ -45,13 +45,22 @@
             </column>
 			<column name="failure" type="boolean" />
 			<column name="changed_by" type="varchar(255)" />
-			<column name="creator" type="varchar(255)" />
+			<column name="creator" type="int"/>
 			<column name="date_changed" type="datetime" />
-			<column name="date_created" type="datetime" />
+			<column name="date_created" type="datetime">
+				<constraints nullable="false"/>
+			</column>
 			<column name="date_voided" type="datetime" />
 			<column name="void_reason" type="varchar(255)" />
-			<column name="voided" type="varchar(255)" />
-			<column name="voided_by" type="varchar(255)" />
+			<column name="voided" type="boolean" defaultValueBoolean="false">
+				<constraints nullable="false"/>
+			</column>
+			<column name="voided_by" type="varchar(255)"/>
+			<column name="retried" type="boolean" defaultValueBoolean="false">
+				<constraints nullable="false"/>
+			</column>
+			<column name="retryTimestamp" type="datetime"/>
+			<column name="retryReason" type="varchar(255)"/>
 		</createTable>
         <addForeignKeyConstraint constraintName="outgoingmessageexceptions_message_owner_fk" baseTableName="outgoingmessageexceptions_message" baseColumnNames="owner"  referencedTableName="users"
                                  referencedColumnNames="user_id" />

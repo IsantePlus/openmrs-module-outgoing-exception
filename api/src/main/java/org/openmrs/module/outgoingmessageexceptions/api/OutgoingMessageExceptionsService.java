@@ -15,6 +15,8 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.outgoingmessageexceptions.OutgoingMessage;
 import org.openmrs.module.outgoingmessageexceptions.OutgoingMessageExceptionsConfig;
+import org.openmrs.module.outgoingmessageexceptions.api.exceptions.BadRequestException;
+import org.openmrs.module.outgoingmessageexceptions.api.exceptions.NotFoundException;
 import org.openmrs.module.outgoingmessageexceptions.api.model.enums.MessageType;
 import org.openmrs.module.outgoingmessageexceptions.api.model.enums.SortingFieldName;
 import org.openmrs.module.outgoingmessageexceptions.api.model.enums.SortingOrder;
@@ -64,6 +66,22 @@ public interface OutgoingMessageExceptionsService extends OpenmrsService {
 	@Authorized()
 	@Transactional(readOnly = true)
 	String getMessageById(Integer id) throws APIException, JsonProcessingException;
+	
+	/**
+	 * Set an OutgoingMessage as retried. It needs message id parameter to find the message, a retry
+	 * local date and retry reason are used as a feedback. It can be called by any authenticated
+	 * user.
+	 * 
+	 * @param id
+	 * @param retryLocalDate
+	 * @param retryReason
+	 * @return OutgoingMessage
+	 * @throws APIException
+	 * @throws JsonProcessingException
+	 */
+	@Authorized()
+	void retryMessage(Integer id, LocalDate retryLocalDate, String retryReason) throws NotFoundException,
+	        BadRequestException;
 	
 	/**
 	 * Fetches messages with pagination, given order and type. When v parameter equals "full" the

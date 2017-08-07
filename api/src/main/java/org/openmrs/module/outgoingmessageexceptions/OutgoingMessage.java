@@ -73,6 +73,18 @@ public class OutgoingMessage extends BaseOpenmrsData {
 	@Column(name = "failure")
 	private Boolean failure;
 	
+	@Basic
+	@Column(name = "retried")
+	private Boolean retried;
+	
+	@Basic
+	@Column(name = "retryTimestamp")
+	private Date retryTimestamp;
+	
+	@Basic
+	@Column(name = "retryReason")
+	private String retryReason;
+	
 	public OutgoingMessage() {
 	}
 	
@@ -86,6 +98,24 @@ public class OutgoingMessage extends BaseOpenmrsData {
 		this.destination = destination;
 		this.type = type;
 		this.failure = failure;
+		this.retried = false;
+		this.retryTimestamp = null;
+		this.retryReason = null;
+	}
+	
+	public OutgoingMessage(Integer id, Integer ownerId, String messageBody, Date timestamp, String failureReason,
+	    String destination, String type, boolean failure, boolean retried, Date retryTimestamp, String retryReason) {
+		this.id = id;
+		this.owner = new User(ownerId);
+		this.messageBody = messageBody;
+		this.timestamp = timestamp;
+		this.failureReason = failureReason;
+		this.destination = destination;
+		this.type = type;
+		this.failure = failure;
+		this.retried = retried;
+		this.retryTimestamp = retryTimestamp;
+		this.retryReason = retryReason;
 	}
 	
 	@Override
@@ -162,6 +192,30 @@ public class OutgoingMessage extends BaseOpenmrsData {
 	
 	public void setFailureReason(String failureReason) {
 		this.failureReason = failureReason;
+	}
+	
+	public Boolean getRetried() {
+		return retried;
+	}
+	
+	public void setRetried(Boolean retried) {
+		this.retried = retried;
+	}
+	
+	public Date getRetryTimestamp() {
+		return retryTimestamp;
+	}
+	
+	public void setRetryTimestamp(Date retryTimestamp) {
+		this.retryTimestamp = retryTimestamp;
+	}
+	
+	public String getRetryReason() {
+		return retryReason;
+	}
+	
+	public void setRetryReason(String retryReason) {
+		this.retryReason = retryReason;
 	}
 	
 	public static class OutgoingMessageSerializer extends StdSerializer<OutgoingMessage> {
