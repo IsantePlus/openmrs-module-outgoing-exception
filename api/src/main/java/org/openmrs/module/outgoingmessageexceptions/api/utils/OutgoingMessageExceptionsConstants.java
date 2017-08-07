@@ -13,4 +13,6 @@ public class OutgoingMessageExceptionsConstants {
 	public static final String FAILURE_COLUMN_NAME = "failure";
 	
 	public static final String RETRIED_COLUMN_NAME = "retried";
+	
+	public static final String GET_OUTGOING = "Get Outgoing Messages";
 }

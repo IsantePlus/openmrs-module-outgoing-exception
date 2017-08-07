@@ -1,9 +1,10 @@
 package org.openmrs.module.outgoingmessageexceptions.web.controller.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.module.outgoingmessageexceptions.RetryRequest;
+import org.openmrs.api.context.Context;
+
 import org.openmrs.module.outgoingmessageexceptions.api.OutgoingMessageExceptionsService;
 import org.openmrs.module.outgoingmessageexceptions.api.converter.OutgoingMessageStringToDateConverter;
 import org.openmrs.module.outgoingmessageexceptions.api.exceptions.BadRequestException;
@@ -11,6 +12,7 @@ import org.openmrs.module.outgoingmessageexceptions.api.exceptions.NotFoundExcep
 import org.openmrs.module.outgoingmessageexceptions.api.model.enums.MessageType;
 import org.openmrs.module.outgoingmessageexceptions.api.model.enums.SortingFieldName;
 import org.openmrs.module.outgoingmessageexceptions.api.model.enums.SortingOrder;
+import org.openmrs.module.outgoingmessageexceptions.api.utils.OutgoingMessageExceptionsConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -59,21 +60,27 @@ public class OutgoingMessageExceptionsRestController {
 	        @RequestParam(value = "type", required = false) String type,
 	        @RequestParam(value = "failed", defaultValue = "false") Boolean failed) {
 		
-		SortingFieldName sortingFieldName = sortField.equals("user.name") ? SortingFieldName.OWNER : SortingFieldName
-		        .valueOf(sortField.toUpperCase());
-		SortingOrder sortingOrder = sortOrder != null ? SortingOrder.valueOf(sortOrder.toUpperCase()) : null;
-		MessageType messageType = type != null ? MessageType.valueOf(type.toUpperCase()) : null;
-		
-		OutgoingMessageStringToDateConverter converter = new OutgoingMessageStringToDateConverter();
-		return outgoingMessageExceptionsService.getPaginatedMessages(pageIndex, pageSize, converter.convert(from), v,
-		    sortingFieldName, sortingOrder, messageType, failed);
+		if (Context.hasPrivilege(OutgoingMessageExceptionsConstants.GET_OUTGOING)) {
+			SortingFieldName sortingFieldName = sortField.equals("user.name") ? SortingFieldName.OWNER : SortingFieldName
+			        .valueOf(sortField.toUpperCase());
+			SortingOrder sortingOrder = sortOrder != null ? SortingOrder.valueOf(sortOrder.toUpperCase()) : null;
+			MessageType messageType = type != null ? MessageType.valueOf(type.toUpperCase()) : null;
+			
+			OutgoingMessageStringToDateConverter converter = new OutgoingMessageStringToDateConverter();
+			return outgoingMessageExceptionsService.getPaginatedMessages(pageIndex, pageSize, converter.convert(from), v,
+			    sortingFieldName, sortingOrder, messageType, failed);
+		} else
+			return null;
 	}
 	
 	@RequestMapping(value = "/messages/{id}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public String getMessageById(@PathVariable Integer id) throws JsonProcessingException {
-		logger.debug("Get Single message reached by message id");
-		return outgoingMessageExceptionsService.getMessageById(id);
+		if (Context.hasPrivilege(OutgoingMessageExceptionsConstants.GET_OUTGOING)) {
+			logger.debug("Get Single message reached by message id");
+			return outgoingMessageExceptionsService.getMessageById(id);
+		} else
+			return null;
 	}
 	
 	@RequestMapping(value = "/messages/{id}/retry", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)

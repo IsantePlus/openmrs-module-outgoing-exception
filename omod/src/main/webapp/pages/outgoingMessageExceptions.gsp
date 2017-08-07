@@ -1,5 +1,6 @@
 <%
     ui.decorateWith("appui", "standardEmrPage")
+    if (context.hasPrivilege("View Outgoing Messages")) {
 %>
 
 <script type="text/javascript">
@@ -36,3 +37,5 @@
     </a>
 
 </div>
+
+<% } %>

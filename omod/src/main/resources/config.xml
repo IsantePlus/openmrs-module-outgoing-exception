@@ -42,7 +42,14 @@
 		<point>org.openmrs.admin.list</point>
 		<class>org.openmrs.module.outgoingmessageexceptions.extension.html.AdminList</class>
 	</extension>
-	
+	<privilege>
+		<name>Get Outgoing Messages</name>
+		<description>Ability to Get Outgoing Messages</description>
+	</privilege>
+	<privilege>
+		<name>View Outgoing Messages</name>
+		<description>Ability to View Outgoing Messages</description>
+	</privilege>
 	<!-- AOP
 	<advice>
 		<point>org.openmrs.api.FormService</point>

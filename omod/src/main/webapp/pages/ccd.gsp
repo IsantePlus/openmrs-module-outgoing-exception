@@ -1,5 +1,6 @@
 <%
 ui.decorateWith("appui", "standardEmrPage")
+if (context.hasPrivilege("View Outgoing Messages")) {
 %>
 <% ui.includeJavascript("outgoing-message-exceptions", "outgoing.message.controller.js") %>
 <% ui.includeJavascript("outgoing-message-exceptions", "jsGrid.min.js") %>
@@ -22,3 +23,5 @@ ui.decorateWith("appui", "standardEmrPage")
 </script>
 
 <div id="jsGrid" class="jsgrid" style="position: relative; height: auto; width: 100%;"></div>
+
+<% } %>
