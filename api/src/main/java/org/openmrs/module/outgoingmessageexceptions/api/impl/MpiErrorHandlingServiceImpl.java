@@ -28,6 +28,9 @@ public class MpiErrorHandlingServiceImpl extends BaseOpenmrsService implements M
 		message.setMessageBody(messageBody);
 		message.setType(type);
 		message.setTimestamp(new Date());
+		message.setRetried(false);
+		message.setRetryReason("");
+		message.setRetryTimestamp(new Date());
 		
 		outgoingMessageExceptionsService.saveItem(message);
 	}
