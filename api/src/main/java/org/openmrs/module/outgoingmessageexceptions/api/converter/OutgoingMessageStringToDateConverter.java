@@ -15,7 +15,7 @@ public class OutgoingMessageStringToDateConverter implements Converter<String, L
 	@Override
 	public LocalDate convert(String source) {
 		if (null != source) {
-			return LocalDate.parse(source);
+			return LocalDate.parse(source.trim());
 		} else {
 			return null;
 		}
