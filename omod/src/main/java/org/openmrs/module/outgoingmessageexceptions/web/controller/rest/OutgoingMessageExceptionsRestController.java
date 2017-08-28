@@ -110,4 +110,32 @@ public class OutgoingMessageExceptionsRestController {
 		}
 		return new ResponseEntity(HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/messages/{id}/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity updateMessage(@PathVariable Integer id, @RequestBody RetryRequest updateRequest) {
+		logger.debug("Set a message with " + id + " id as retried");
+		try {
+			LocalDate timestamp = null;
+			
+			if (StringUtils.isBlank(updateRequest.getTimestamp()) || StringUtils.isBlank(updateRequest.getResponse())) {
+				throw new BadRequestException();
+			}
+			try {
+				OutgoingMessageStringToDateConverter converter = new OutgoingMessageStringToDateConverter();
+				timestamp = converter.convert(updateRequest.getTimestamp());
+			}
+			catch (DateTimeParseException e) {
+				throw new BadRequestException();
+			}
+			
+			outgoingMessageExceptionsService.updateMessage(id, timestamp, updateRequest.getResponse());
+		}
+		catch (BadRequestException e) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+		catch (NotFoundException e) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity(HttpStatus.OK);
+	}
 }

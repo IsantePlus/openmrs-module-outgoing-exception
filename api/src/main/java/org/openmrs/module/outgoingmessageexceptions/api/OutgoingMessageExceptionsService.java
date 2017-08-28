@@ -84,6 +84,22 @@ public interface OutgoingMessageExceptionsService extends OpenmrsService {
 	        BadRequestException;
 	
 	/**
+	 * Update OutgoingMessage after failed retry. It needs message id parameter to find the message,
+	 * a retry local date and retry reason are used as a feedback. It can be called by any
+	 * authenticated user.
+	 * 
+	 * @param id
+	 * @param retryLocalDate
+	 * @param retryReason
+	 * @return OutgoingMessage
+	 * @throws APIException
+	 * @throws JsonProcessingException
+	 */
+	@Authorized()
+	void updateMessage(Integer id, LocalDate retryLocalDate, String retryReason) throws NotFoundException,
+	        BadRequestException;
+	
+	/**
 	 * Fetches messages with pagination, given order and type. When v parameter equals "full" the
 	 * pagination is ignored and all messages are returned. It can be called by any authenticated
 	 * user.

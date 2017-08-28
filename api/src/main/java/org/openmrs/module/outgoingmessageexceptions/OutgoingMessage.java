@@ -267,6 +267,7 @@ public class OutgoingMessage extends BaseOpenmrsData {
 			object.addProperty("timestamp", src.timestamp.toString());
 			object.addProperty("failure", src.failure);
 			object.addProperty("type", src.type);
+			object.addProperty("messageBody", src.messageBody);
 			
 			return object;
 		}

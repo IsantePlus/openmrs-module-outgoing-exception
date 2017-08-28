@@ -96,6 +96,18 @@ public class OutgoingMessageExceptionsServiceImpl extends BaseOpenmrsService imp
 	}
 	
 	@Override
+	public void updateMessage(Integer id, LocalDate retryLocalDate, String retryReason) throws NotFoundException {
+		OutgoingMessage outgoingMessage = dao.getMessageById(id);
+		if (outgoingMessage == null) {
+			throw new NotFoundException();
+		}
+		outgoingMessage.setRetryTimestamp(convertLocalDateToDate(retryLocalDate));
+		outgoingMessage.setTimestamp(convertLocalDateToDate(retryLocalDate));
+		outgoingMessage.setRetryReason(retryReason);
+		saveItem(outgoingMessage);
+	}
+	
+	@Override
 	public List<OutgoingMessage> getAllMessagesFrom(LocalDate from) {
 		return dao.getAllMessagesFrom(from);
 	}
