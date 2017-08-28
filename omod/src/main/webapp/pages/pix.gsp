@@ -5,6 +5,8 @@ if (context.hasPrivilege("View Outgoing Messages")) {
 <% ui.includeJavascript("outgoing-message-exceptions", "outgoing.message.controller.js") %>
 <% ui.includeJavascript("outgoing-message-exceptions", "jsGrid.min.js") %>
 
+<link href="/${ ui.contextPath() }/ms/uiframework/resource/outgoing-message-exceptions/styles/jsGrid.css"  rel="stylesheet" type="text/css" />
+<link href="/${ ui.contextPath() }/ms/uiframework/resource/outgoing-message-exceptions/styles/theme.css"  rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
