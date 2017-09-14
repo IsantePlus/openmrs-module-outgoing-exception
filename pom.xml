@@ -19,14 +19,14 @@
 
 	<properties>
 		<openmrsPlatformVersion>2.0.5</openmrsPlatformVersion>
-
 		<htmlformentryVersion>3.3.2</htmlformentryVersion>
 		<uiframeworkVersion>3.11.0</uiframeworkVersion>
 		<htmlformentryuiVersion>1.6.3</htmlformentryuiVersion>
 		<appframeworkVersion>2.10.0</appframeworkVersion>
 		<emrapiVersion>1.21.0</emrapiVersion>
 		<coreappsVersion>1.13.0</coreappsVersion>
-
+		<registrationcoreVersion>1.7.2-SNAPSHOT</registrationcoreVersion>
+		<xds-senderVersion>1.0.0</xds-senderVersion>
 		<gsonVersion>2.8.1</gsonVersion>
 	</properties>
 
@@ -81,6 +81,18 @@
 				<version>${coreappsVersion}</version>
 				<scope>provided</scope>
 			</dependency>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>registrationcore</artifactId>
+				<version>${registartioncoreVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>xds-sender</artifactId>
+				<version>${xds-senderVersion}</version>
+				<scope>provided</scope>
+			</dependency>
 			<!-- End OpenMRS modules -->
 
 			<dependency>
@@ -97,6 +109,10 @@
 			<id>openmrs-repo</id>
 			<name>OpenMRS Nexus Repository</name>
 			<url>http://mavenrepo.openmrs.org/nexus/content/repositories/public</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>daily</updatePolicy>
+			</snapshots>
 		</repository>
 		<repository>
 			<id>central</id>
@@ -113,6 +129,7 @@
 			<url>http://mavenrepo.openmrs.org/nexus/content/repositories/public</url>
 			<snapshots>
 				<enabled>false</enabled>
+				<updatePolicy>daily</updatePolicy>
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>

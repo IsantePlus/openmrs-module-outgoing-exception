@@ -25,26 +25,14 @@
 		</dependency>
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
-			<artifactId>registrationcore</artifactId>
-			<version>1.7.2-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.openmrs.module</groupId>
 			<artifactId>registrationcore-api</artifactId>
-			<version>1.7.2-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.openmrs.module</groupId>
-			<artifactId>xds-sender</artifactId>
-			<version>1.0.0</version>
+			<version>${registrationcoreVersion}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>xds-sender-api</artifactId>
-			<version>1.0.0</version>
+			<version>${xds-senderVersion}</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
