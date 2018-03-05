@@ -34,7 +34,7 @@ import java.util.List;
 public class OutgoingMessageExceptionsDao {
 	
 	@Autowired
-	DbSessionFactory sessionFactory;
+	private DbSessionFactory sessionFactory;
 	
 	private DbSession getSession() {
 		return sessionFactory.getCurrentSession();
