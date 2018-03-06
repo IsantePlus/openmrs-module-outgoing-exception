@@ -23,28 +23,6 @@
   		    http://www.springframework.org/schema/util
   		    http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
-    <context:component-scan base-package="org.openmrs.module.outgoingmessageexceptions" />
-
-    <!-- Wraps OutgoingMessageExceptionsService methods in DB transactions and OpenMRS interceptors,
-    which set audit info like dateCreated, changedBy, etc.-->
-    <bean id="outgoingmessageexceptions.OutgoingMessageExceptionsService"
-            class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-        <property name="transactionManager">
-            <ref bean="transactionManager" />
-        </property>
-        <property name="target">
-            <bean class="org.openmrs.module.outgoingmessageexceptions.api.impl.OutgoingMessageExceptionsServiceImpl">
-                <property name="dao" ref="outgoingmessageexceptions.OutgoingMessageExceptionsDao" />
-            </bean>
-        </property>
-        <property name="preInterceptors">
-            <ref bean="serviceInterceptors" />
-        </property>
-        <property name="transactionAttributeSource">
-            <ref bean="transactionAttributeSource" />
-        </property>
-    </bean>
-
     <!-- Adds OutgoingMessageExceptionsService to OpenMRS context so it can be accessed
     calling Context.getService(OutgoingMessageExceptionsService.class) -->
     <bean parent="serviceContext">

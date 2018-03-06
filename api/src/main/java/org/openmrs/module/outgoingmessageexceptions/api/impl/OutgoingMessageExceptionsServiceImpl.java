@@ -14,6 +14,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.List;
 import org.openmrs.api.APIException;
 import org.openmrs.api.UserService;
 import org.openmrs.api.impl.BaseOpenmrsService;
@@ -27,17 +31,17 @@ import org.openmrs.module.outgoingmessageexceptions.api.model.enums.MessageType;
 import org.openmrs.module.outgoingmessageexceptions.api.model.enums.SortingFieldName;
 import org.openmrs.module.outgoingmessageexceptions.api.model.enums.SortingOrder;
 import org.openmrs.module.outgoingmessageexceptions.api.utils.OutgoingMessageExceptionsConstants;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
-import java.util.List;
-
+@Component("outgoingmessageexceptions.OutgoingMessageExceptionsService")
 public class OutgoingMessageExceptionsServiceImpl extends BaseOpenmrsService implements OutgoingMessageExceptionsService {
 	
-	OutgoingMessageExceptionsDao dao;
+	@Autowired
+	private OutgoingMessageExceptionsDao dao;
 	
-	UserService userService;
+	@Autowired
+	private UserService userService;
 	
 	/**
 	 * Injected in moduleApplicationContext.xml

@@ -23,14 +23,16 @@ public class OutgoingMessageExceptionsActivator extends BaseModuleActivator {
 	/**
 	 * @see #started()
 	 */
+	@Override
 	public void started() {
 		log.info("Started Outgoing Message Exceptions");
 	}
 	
 	/**
-	 * @see #shutdown()
+	 * @see #stopped()
 	 */
-	public void shutdown() {
+	@Override
+	public void stopped() {
 		log.info("Shutdown Outgoing Message Exceptions");
 	}
 	
