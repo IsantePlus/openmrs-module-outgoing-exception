@@ -50,6 +50,7 @@
 				<groupId>org.openmrs.web</groupId>
 				<artifactId>openmrs-web</artifactId>
 				<version>${openmrsPlatformVersion}</version>
+				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
@@ -77,11 +78,6 @@
 			</dependency>
 			<!-- End OpenMRS modules -->
 
-			<dependency>
-				<groupId>org.openmrs.module</groupId>
-				<artifactId>outgoing-message-exceptions-api</artifactId>
-				<version>${version}</version>
-			</dependency>
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-databind</artifactId>

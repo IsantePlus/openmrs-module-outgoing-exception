@@ -20,15 +20,11 @@
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>outgoing-message-exceptions-api</artifactId>
+			<version>${parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openmrs.web</groupId>
 			<artifactId>openmrs-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.openmrs.web</groupId>
-			<artifactId>openmrs-web</artifactId>
-			<classifier>tests</classifier>
 		</dependency>
 		<dependency>
 			<groupId>org.openmrs.module</groupId>

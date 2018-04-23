@@ -4,8 +4,8 @@ import org.openmrs.module.outgoingmessageexceptions.api.model.enums.MessageType;
 import org.openmrs.module.xdssender.api.errorhandling.XdsBErrorHandlingService;
 import org.springframework.stereotype.Component;
 
-@Component("outgoingmessageexceptions.XdsErrorHandlingService")
-public class XdsErrorHandlingServiceImpl extends BaseHandlingServiceImpl
+@Component("outgoingmessageexceptions.XdsBErrorHandlingService")
+public class XdsBErrorHandlingServiceImpl extends BaseHandlingServiceImpl
 		implements XdsBErrorHandlingService {
 	
 	@Override
