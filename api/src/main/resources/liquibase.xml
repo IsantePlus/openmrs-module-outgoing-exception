@@ -1,23 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
+
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
-                  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
- 
-    <!--
-    	See http://wiki.openmrs.org/display/docs/Module+liquibase+File for 
-    	documentation on this file.
-    
-        See http://www.liquibase.org/manual/home#available_database_refactorings
-        for a list of supported elements and attributes
-    -->
- 
- 	<!-- Uncomment the changeset below if you want to make the OutgoingMessage class persistable, see also OutgoingMessage and OutgoingMessageExceptionsDaoTest -->
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+				http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
 
 	<changeSet id="outgoingmessageexceptions-2017-07-31-14-24" author="Soldevelo">
 		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="outgoingmessageexceptions_message"/></not>
+			<not>
+				<tableExists tableName="outgoingmessageexceptions_message"/>
+			</not>
 		</preConditions>
 		<comment>
 			Creating the outgoingmessageexceptions_message table
@@ -29,29 +22,29 @@
 			<column name="uuid" type="char(38)">
 				<constraints nullable="false" unique="true"/>
 			</column>
-			<column name="owner" type="int" />
-			<column name="messageBody" type="text" >
-                <constraints nullable="false"/>
-            </column>
-            <column name="timestamp" type="datetime" >
-                <constraints nullable="false"/>
-            </column>
-            <column name="failureReason" type="varchar(255)" />
-            <column name="destination" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="type" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-			<column name="failure" type="boolean" />
-			<column name="changed_by" type="varchar(255)" />
+			<column name="owner" type="int"/>
+			<column name="messageBody" type="text">
+				<constraints nullable="false"/>
+			</column>
+			<column name="timestamp" type="datetime">
+				<constraints nullable="false"/>
+			</column>
+			<column name="failureReason" type="varchar(255)"/>
+			<column name="destination" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="type" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="failure" type="boolean"/>
+			<column name="changed_by" type="varchar(255)"/>
 			<column name="creator" type="int"/>
-			<column name="date_changed" type="datetime" />
+			<column name="date_changed" type="datetime"/>
 			<column name="date_created" type="datetime">
 				<constraints nullable="false"/>
 			</column>
-			<column name="date_voided" type="datetime" />
-			<column name="void_reason" type="varchar(255)" />
+			<column name="date_voided" type="datetime"/>
+			<column name="void_reason" type="varchar(255)"/>
 			<column name="voided" type="boolean" defaultValueBoolean="false">
 				<constraints nullable="false"/>
 			</column>
@@ -62,8 +55,19 @@
 			<column name="retryTimestamp" type="datetime"/>
 			<column name="retryReason" type="varchar(255)"/>
 		</createTable>
-        <addForeignKeyConstraint constraintName="outgoingmessageexceptions_message_owner_fk" baseTableName="outgoingmessageexceptions_message" baseColumnNames="owner"  referencedTableName="users"
-                                 referencedColumnNames="user_id" />
-    </changeSet>
+		<addForeignKeyConstraint constraintName="outgoingmessageexceptions_message_owner_fk"
+				baseTableName="outgoingmessageexceptions_message" baseColumnNames="owner"
+				referencedTableName="users"
+				referencedColumnNames="user_id"/>
+	</changeSet>
 
+	<changeSet id="outgoingmessageexceptions-2018-04-24-10-50" author="Daniel Serkowski">
+		<preConditions>
+			<tableExists tableName="outgoingmessageexceptions_message"/>
+		</preConditions>
+		<modifyColumn tableName="outgoingmessageexceptions_message">
+			<column name="failureReason" type="text"/>
+			<column name="retryReason" type="text"/>
+		</modifyColumn>
+	</changeSet>
 </databaseChangeLog>

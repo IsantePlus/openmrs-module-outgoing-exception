@@ -17,6 +17,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import javax.persistence.Lob;
 import org.openmrs.BaseOpenmrsData;
 import org.openmrs.User;
 
@@ -49,6 +50,7 @@ public class OutgoingMessage extends BaseOpenmrsData {
 	@JoinColumn(name = "owner")
 	private User owner;
 	
+	@Lob
 	@Basic
 	@Column(name = "messageBody", length = 255)
 	private String messageBody;
@@ -57,6 +59,7 @@ public class OutgoingMessage extends BaseOpenmrsData {
 	@Column(name = "timestamp", length = 255)
 	private Date timestamp;
 	
+	@Lob
 	@Basic
 	@Column(name = "failureReason", length = 255)
 	private String failureReason;
@@ -81,6 +84,7 @@ public class OutgoingMessage extends BaseOpenmrsData {
 	@Column(name = "retryTimestamp")
 	private Date retryTimestamp;
 	
+	@Lob
 	@Basic
 	@Column(name = "retryReason")
 	private String retryReason;
