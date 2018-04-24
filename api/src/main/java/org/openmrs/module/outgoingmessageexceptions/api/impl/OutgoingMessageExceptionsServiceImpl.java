@@ -72,7 +72,12 @@ public class OutgoingMessageExceptionsServiceImpl extends BaseOpenmrsService imp
 	}
 	
 	@Override
-	public String getMessageById(Integer id) throws APIException, JsonProcessingException {
+	public OutgoingMessage getMessageById(Integer id) throws APIException {
+		return dao.getMessageById(id);
+	}
+	
+	@Override
+	public String getSerializedMessageById(Integer id) throws APIException, JsonProcessingException {
 		
 		OutgoingMessage outgoingMessage = dao.getMessageById(id);
 		ObjectMapper mapper = new ObjectMapper();
