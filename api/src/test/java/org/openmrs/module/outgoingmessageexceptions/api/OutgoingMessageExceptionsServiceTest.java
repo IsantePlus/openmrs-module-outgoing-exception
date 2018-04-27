@@ -50,13 +50,13 @@ public class OutgoingMessageExceptionsServiceTest {
 	private static final String OUTGOING_PAGINATED_MESSAGE_RESPONSE_JSON = "/testPaginatedOutgoingMessage.json";
 	
 	@InjectMocks
-	OutgoingMessageExceptionsServiceImpl basicModuleService;
+	private OutgoingMessageExceptionsServiceImpl basicModuleService;
 	
 	@Mock
-	OutgoingMessageExceptionsDao dao;
+	private OutgoingMessageExceptionsDao dao;
 	
 	@Mock
-	UserService userService;
+	private UserService userService;
 	
 	@Before
 	public void setupMocks() {
@@ -81,15 +81,27 @@ public class OutgoingMessageExceptionsServiceTest {
 	}
 	
 	@Test
-	public void shouldReturnMessageById() throws Exception {
+	public void shouldReturnSerializedMessageById() throws Exception {
 		Integer testId = 1;
 		
 		when(dao.getMessageById(1)).thenReturn(prepareDummyOutgoingMessage());
 		
 		String expected = readJsonFromFile(OUTGOING_MESSAGE_RESPONSE_JSON);
-		String fetched = basicModuleService.getMessageById(testId);
+		String fetched = basicModuleService.getSerializedMessageById(testId);
 		
 		assertEquals(expected, fetched);
+	}
+	
+	@Test
+	public void shouldReturnMessageById() {
+		Integer testId = 1;
+		OutgoingMessage dummyOutgoingMessage = prepareDummyOutgoingMessage();
+		
+		when(dao.getMessageById(1)).thenReturn(dummyOutgoingMessage);
+		
+		OutgoingMessage fetched = basicModuleService.getMessageById(testId);
+		
+		assertEquals(dummyOutgoingMessage, fetched);
 	}
 	
 	@Test

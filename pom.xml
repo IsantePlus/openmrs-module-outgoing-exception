@@ -2,11 +2,11 @@
 		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.openmrs.maven.parents</groupId>
-        <artifactId>maven-parent-openmrs-module</artifactId>
-        <version>1.1.1</version>
-    </parent>
+	<parent>
+		<groupId>org.openmrs.maven.parents</groupId>
+		<artifactId>maven-parent-openmrs-module</artifactId>
+		<version>1.1.1</version>
+	</parent>
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>outgoing-message-exceptions</artifactId>
@@ -26,8 +26,10 @@
 		<emrapiVersion>1.21.0</emrapiVersion>
 		<coreappsVersion>1.13.0</coreappsVersion>
 		<registrationcoreVersion>1.7.2-SNAPSHOT</registrationcoreVersion>
-		<xds-senderVersion>1.0.0</xds-senderVersion>
+		<xdssenderVersion>1.0.0</xdssenderVersion>
 		<gsonVersion>2.8.1</gsonVersion>
+		<fasterXmlJacksonVersion>2.4.2</fasterXmlJacksonVersion>
+		<legacyuiVersion>1.0</legacyuiVersion>
 	</properties>
 
 	<scm>
@@ -45,9 +47,9 @@
 		<dependencies>
 			<!-- Begin OpenMRS modules -->
 			<dependency>
-				<groupId>org.openmrs.module</groupId>
-				<artifactId>htmlformentry-api-1.10</artifactId>
-				<version>${htmlformentryVersion}</version>
+				<groupId>org.openmrs.web</groupId>
+				<artifactId>openmrs-web</artifactId>
+				<version>${openmrsPlatformVersion}</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
@@ -55,46 +57,32 @@
 				<artifactId>uiframework-api</artifactId>
 				<version>${uiframeworkVersion}</version>
 				<scope>provided</scope>
-				<type>jar</type>
 			</dependency>
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
-				<artifactId>htmlformentryui-api</artifactId>
-				<version>${htmlformentryuiVersion}</version>
+				<artifactId>registrationcore-api</artifactId>
+				<version>${registrationcoreVersion}</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
-				<artifactId>appframework-api</artifactId>
-				<version>${appframeworkVersion}</version>
+				<artifactId>xds-sender-api</artifactId>
+				<version>${xdssenderVersion}</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
-				<artifactId>emrapi-api</artifactId>
-				<version>${emrapiVersion}</version>
-				<scope>provided</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.openmrs.module</groupId>
-				<artifactId>coreapps-api</artifactId>
-				<version>${coreappsVersion}</version>
-				<scope>provided</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.openmrs.module</groupId>
-				<artifactId>registrationcore</artifactId>
-				<version>${registartioncoreVersion}</version>
-				<scope>provided</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.openmrs.module</groupId>
-				<artifactId>xds-sender</artifactId>
-				<version>${xds-senderVersion}</version>
+				<artifactId>legacyui-omod</artifactId>
+				<version>${legacyuiVersion}</version>
 				<scope>provided</scope>
 			</dependency>
 			<!-- End OpenMRS modules -->
 
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${fasterXmlJacksonVersion}</version>
+			</dependency>
 			<dependency>
 				<groupId>com.google.code.gson</groupId>
 				<artifactId>gson</artifactId>
@@ -137,6 +125,11 @@
 	<build>
 		<pluginManagement>
 			<plugins>
+				<plugin>
+					<groupId>com.googlecode.maven-java-formatter-plugin</groupId>
+					<artifactId>maven-java-formatter-plugin</artifactId>
+					<inherited>false</inherited>
+				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>

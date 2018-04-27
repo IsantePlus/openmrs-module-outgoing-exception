@@ -17,6 +17,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import javax.persistence.Lob;
 import org.openmrs.BaseOpenmrsData;
 import org.openmrs.User;
 
@@ -35,7 +36,6 @@ import java.util.Date;
 /**
  * Please note that a corresponding table schema must be created in liquibase.xml.
  */
-//Uncomment 2 lines below if you want to make the OutgoingMessage class persistable, see also OutgoingExceptionDaoTest and liquibase.xml
 @Entity(name = "outgoingmessageexceptions.OutgoingMessage")
 @Table(name = "outgoingmessageexceptions_message")
 public class OutgoingMessage extends BaseOpenmrsData {
@@ -49,24 +49,26 @@ public class OutgoingMessage extends BaseOpenmrsData {
 	@JoinColumn(name = "owner")
 	private User owner;
 	
+	@Lob
 	@Basic
-	@Column(name = "messageBody", length = 255)
+	@Column(name = "messageBody")
 	private String messageBody;
 	
 	@Basic
-	@Column(name = "timestamp", length = 255)
+	@Column(name = "timestamp")
 	private Date timestamp;
 	
+	@Lob
 	@Basic
-	@Column(name = "failureReason", length = 255)
+	@Column(name = "failureReason")
 	private String failureReason;
 	
 	@Basic
-	@Column(name = "destination", length = 255)
+	@Column(name = "destination")
 	private String destination;
 	
 	@Basic
-	@Column(name = "type", length = 255)
+	@Column(name = "type")
 	private String type;
 	
 	@Basic
@@ -81,6 +83,7 @@ public class OutgoingMessage extends BaseOpenmrsData {
 	@Column(name = "retryTimestamp")
 	private Date retryTimestamp;
 	
+	@Lob
 	@Basic
 	@Column(name = "retryReason")
 	private String retryReason;
@@ -229,8 +232,7 @@ public class OutgoingMessage extends BaseOpenmrsData {
 		}
 		
 		@Override
-		public void serialize(OutgoingMessage object, JsonGenerator jgen, SerializerProvider provider) throws IOException,
-		        JsonProcessingException {
+		public void serialize(OutgoingMessage object, JsonGenerator jgen, SerializerProvider provider) throws IOException {
 			jgen.writeStartObject();
 			jgen.writeNumberField("id", object.id);
 			jgen.writeStringField("messageBody", object.messageBody);
