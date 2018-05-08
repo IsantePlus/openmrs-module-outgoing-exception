@@ -35,7 +35,7 @@ public class RetrySchedulerServiceImpl implements RetrySchedulerService {
 			
 			try {
 				Context.getSchedulerService().saveTaskDefinition(result);
-				Context.getSchedulerService().scheduleIfNotRunning(
+				Context.getSchedulerService().scheduleTask(
 						Context.getSchedulerService().getTaskByName(name));
 				LOGGER.info(String.format("Created new scheduler task '%s'", name));
 			} catch (Exception e) {

@@ -159,5 +159,5 @@ public interface OutgoingMessageExceptionsService extends OpenmrsService {
 	 */
 	@Authorized
 	@Transactional(readOnly = true)
-	List<OutgoingMessage> getFailedMessagesByType(MessageType type);
+	List<OutgoingMessage> getFailedMessagesByTypeChronologically(MessageType type);
 }

@@ -1,7 +1,5 @@
 package org.openmrs.module.outgoingmessageexceptions.api.retry.impl;
 
-import java.util.List;
-import org.openmrs.module.outgoingmessageexceptions.OutgoingMessage;
 import org.openmrs.module.outgoingmessageexceptions.api.OutgoingMessageExceptionsService;
 import org.openmrs.module.outgoingmessageexceptions.api.model.enums.MessageType;
 import org.openmrs.module.outgoingmessageexceptions.api.retry.RetryService;
@@ -27,7 +25,13 @@ public class RetryServiceImpl implements RetryService {
 	@Override
 	public void retryAll() {
 		LOGGER.info("Executing PIX errors retry...");
-		List<OutgoingMessage> l = outgoingMessageService.getFailedMessagesByType(MessageType.PIX);
+		outgoingMessageService.getFailedMessagesByTypeChronologically(MessageType.PIX).forEach(m -> {
+			pixRetryInvoker.retry(m);
+		});
+		
 		LOGGER.info("Executing XDS.b errors retry...");
+		outgoingMessageService.getFailedMessagesByTypeChronologically(MessageType.XDSB).forEach(m -> {
+			xdsBRetryInvoker.retry(m);
+		});
 	}
 }

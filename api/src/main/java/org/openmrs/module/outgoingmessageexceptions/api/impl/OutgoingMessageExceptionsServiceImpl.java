@@ -113,8 +113,8 @@ public class OutgoingMessageExceptionsServiceImpl extends BaseOpenmrsService imp
 	}
 	
 	@Override
-	public List<OutgoingMessage> getFailedMessagesByType(MessageType type) {
-		return dao.getFailedMessagesByType(type);
+	public List<OutgoingMessage> getFailedMessagesByTypeChronologically(MessageType type) {
+		return dao.getFailedMessagesByTypeChronologically(type);
 	}
 	
 	@Override
