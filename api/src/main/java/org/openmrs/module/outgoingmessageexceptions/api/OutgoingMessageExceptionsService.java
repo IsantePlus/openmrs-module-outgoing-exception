@@ -151,4 +151,13 @@ public interface OutgoingMessageExceptionsService extends OpenmrsService {
 	@Authorized
 	@Transactional(readOnly = true)
 	List<OutgoingMessage> getAllMessages();
+	
+	/**
+	 * Fetches failed outgoingMessages by MessageType.It can be called by any authenticated user.
+	 *
+	 * @return list of the messages.
+	 */
+	@Authorized
+	@Transactional(readOnly = true)
+	List<OutgoingMessage> getFailedMessagesByType(MessageType type);
 }

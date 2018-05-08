@@ -43,20 +43,6 @@ public class OutgoingMessageExceptionsServiceImpl extends BaseOpenmrsService imp
 	@Autowired
 	private UserService userService;
 	
-	/**
-	 * Injected in moduleApplicationContext.xml
-	 */
-	public void setDao(OutgoingMessageExceptionsDao dao) {
-		this.dao = dao;
-	}
-	
-	/**
-	 * Injected in moduleApplicationContext.xml
-	 */
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
-	
 	@Override
 	public OutgoingMessage getItemByUuid(String uuid) throws APIException {
 		return dao.getItemByUuid(uuid);
@@ -124,6 +110,11 @@ public class OutgoingMessageExceptionsServiceImpl extends BaseOpenmrsService imp
 	@Override
 	public List<OutgoingMessage> getAllMessages() {
 		return dao.getAllMessages();
+	}
+	
+	@Override
+	public List<OutgoingMessage> getFailedMessagesByType(MessageType type) {
+		return dao.getFailedMessagesByType(type);
 	}
 	
 	@Override
