@@ -14,31 +14,33 @@ public class RetrySchedulerServiceImpl implements RetrySchedulerService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(RetrySchedulerServiceImpl.class);
 	
 	@Override
-	public void createOrUpdateRetryTask() {
-		createOrUpdateTask(RetryTask.TASK_NAME, RetryTask.TASK_DESCRIPTION, RetryTask.class,
+	public void createTaskIfNotExists() {
+		createTaskIfNotExists(RetryTask.TASK_NAME, RetryTask.TASK_DESCRIPTION, RetryTask.class,
 				RetryTask.DEFAULT_INTERVAL_SECONDS);
 	}
 	
-	private TaskDefinition createOrUpdateTask(String name, String description, Class retryClass, Long interval) {
+	private void createTaskIfNotExists(String name, String description, Class retryClass, Long interval) {
 		TaskDefinition result = Context.getSchedulerService().getTaskByName(name);
 		
 		if (result == null) {
 			result = new TaskDefinition();
+			
+			result.setName(name);
+			result.setDescription(description);
+			result.setTaskClass(retryClass.getName());
+			result.setRepeatInterval(interval);
+			result.setStartTime(new Timestamp(System.currentTimeMillis()));
+			result.setStartOnStartup(true);
+			result.setCreator(Context.getAuthenticatedUser());
+			
+			try {
+				Context.getSchedulerService().saveTaskDefinition(result);
+				Context.getSchedulerService().scheduleIfNotRunning(
+						Context.getSchedulerService().getTaskByName(name));
+				LOGGER.info(String.format("Created new scheduler task '%s'", name));
+			} catch (Exception e) {
+				LOGGER.error(String.format("Error during creating scheduler task '%s'", name), e);
+			}
 		}
-		
-		result.setName(name);
-		result.setDescription(description);
-		result.setTaskClass(retryClass.getName());
-		result.setRepeatInterval(interval);
-		result.setStartTime(new Timestamp(System.currentTimeMillis()));
-		result.setStartOnStartup(true);
-		
-		try {
-			Context.getSchedulerService().saveTaskDefinition(result);
-		} catch (Exception e) {
-			LOGGER.error("Error during save " + name + " definition: ", e);
-		}
-		
-		return Context.getSchedulerService().getTaskByName(name);
 	}
 }

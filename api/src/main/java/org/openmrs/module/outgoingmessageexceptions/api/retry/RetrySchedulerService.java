@@ -2,5 +2,5 @@ package org.openmrs.module.outgoingmessageexceptions.api.retry;
 
 public interface RetrySchedulerService {
 	
-	void createOrUpdateRetryTask();
+	void createTaskIfNotExists();
 }
