@@ -4,7 +4,7 @@ import org.openmrs.module.outgoingmessageexceptions.api.retry.RetryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("outgoingmessageexceptions.RetryService")
 public class RetryServiceImpl implements RetryService {
 	
 	@Autowired
