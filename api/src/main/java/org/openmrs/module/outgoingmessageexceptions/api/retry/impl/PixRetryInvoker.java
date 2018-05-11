@@ -21,11 +21,15 @@ import org.openmrs.module.registrationcore.api.errorhandling.PixErrorHandlingSer
 import org.openmrs.module.registrationcore.api.errorhandling.SendingPatientToMpiParameters;
 import org.openmrs.module.registrationcore.api.impl.RegistrationCoreProperties;
 import org.openmrs.module.registrationcore.api.mpi.common.MpiProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PixRetryInvoker implements RetryInvoker {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(PixRetryInvoker.class);
 
 	@Autowired
 	private AdministrationService administrationService;
@@ -63,6 +67,7 @@ public class PixRetryInvoker implements RetryInvoker {
 			outgoingMessage.setRetryReason("Retried successfully");
 			isSuccess = true;
 		} catch (Exception e) {
+			LOGGER.error("Unsuccessful retry", e);
 			outgoingMessage.setRetryReason(ExceptionUtils.getFullStackTrace(e));
 		}
 

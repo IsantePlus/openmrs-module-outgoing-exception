@@ -12,11 +12,15 @@ import org.openmrs.module.outgoingmessageexceptions.api.OutgoingMessageException
 import org.openmrs.module.outgoingmessageexceptions.api.retry.RetryInvoker;
 import org.openmrs.module.xdssender.api.errorhandling.ExportProvideAndRegisterParameters;
 import org.openmrs.module.xdssender.api.service.XdsExportService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class XdsBRetryInvoker implements RetryInvoker {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(XdsBRetryInvoker.class);
 
 	@Autowired
 	private OutgoingMessageExceptionsService outgoingMessagesService;
@@ -39,6 +43,7 @@ public class XdsBRetryInvoker implements RetryInvoker {
 			outgoingMessage.setRetryReason("Retried successfully");
 			isSuccess = true;
 		} catch (Exception e) {
+			LOGGER.error("Unsuccessful retry", e);
 			outgoingMessage.setRetryReason(ExceptionUtils.getFullStackTrace(e));
 		}
 
