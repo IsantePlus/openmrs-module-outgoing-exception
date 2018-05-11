@@ -21,6 +21,9 @@ public class XdsBRetryInvoker implements RetryInvoker {
 	@Autowired
 	private OutgoingMessageExceptionsService outgoingMessagesService;
 
+	@Autowired
+	private XdsExportService xdsExportService;
+
 	@Override
 	public void retry(OutgoingMessage outgoingMessage) {
 		boolean isSuccess = false;
@@ -31,7 +34,6 @@ public class XdsBRetryInvoker implements RetryInvoker {
 		Patient patient =
 				Context.getPatientService().getPatientByUuid(parameters.getPatientUuid());
 
-		XdsExportService xdsExportService = Context.getService(XdsExportService.class);
 		try {
 			xdsExportService.exportProvideAndRegister(encounter, patient);
 			outgoingMessage.setRetryReason("Retried successfully");
