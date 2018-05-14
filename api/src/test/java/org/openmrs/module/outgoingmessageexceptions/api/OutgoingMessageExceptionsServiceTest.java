@@ -37,6 +37,7 @@ import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
 /**
@@ -117,9 +118,9 @@ public class OutgoingMessageExceptionsServiceTest {
 		
 		OutgoingMessageStringToDateConverter converter = new OutgoingMessageStringToDateConverter();
 		
-		when(dao.getPaginatedMessages(page, pageSize, converter.convert(from), sort, order, type, failed, false))
+		when(dao.getPaginatedMessages(page, pageSize, converter.convert(from), sort, order, type, failed, true))
 		        .thenReturn(prepareDummyPaginatedOutgoingMessages());
-		when(dao.getCountOfMessages(converter.convert(from), sort, order, type, failed, false)).thenReturn(2L);
+		when(dao.getCountOfMessages(converter.convert(from), sort, order, type, failed, true)).thenReturn(2L);
 		
 		String expected = readJsonFromFile(OUTGOING_PAGINATED_MESSAGE_RESPONSE_JSON);
 		String fetched = basicModuleService.getPaginatedMessages(page, pageSize, converter.convert(from), v, sort, order,
