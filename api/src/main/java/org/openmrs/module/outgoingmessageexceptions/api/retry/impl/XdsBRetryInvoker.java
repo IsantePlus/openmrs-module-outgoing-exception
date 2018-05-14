@@ -32,13 +32,13 @@ public class XdsBRetryInvoker implements RetryInvoker {
 	public void retry(OutgoingMessage outgoingMessage) {
 		boolean isSuccess = false;
 
-		ExportProvideAndRegisterParameters parameters = getParameters(outgoingMessage);
-		Encounter encounter =
-				Context.getEncounterService().getEncounterByUuid(parameters.getEncounterUuid());
-		Patient patient =
-				Context.getPatientService().getPatientByUuid(parameters.getPatientUuid());
-
 		try {
+			ExportProvideAndRegisterParameters parameters = getParameters(outgoingMessage);
+			Encounter encounter =
+					Context.getEncounterService().getEncounterByUuid(parameters.getEncounterUuid());
+			Patient patient =
+					Context.getPatientService().getPatientByUuid(parameters.getPatientUuid());
+
 			xdsExportService.exportProvideAndRegister(encounter, patient);
 			outgoingMessage.setRetryReason("Retried successfully");
 			isSuccess = true;
@@ -58,7 +58,7 @@ public class XdsBRetryInvoker implements RetryInvoker {
 			return new ObjectMapper().readValue(outgoingMessage.getMessageBody(),
 					ExportProvideAndRegisterParameters.class);
 		} catch (IOException e) {
-			throw new RuntimeException("Cannot parse parameters for retried exception", e);
+			throw new RuntimeException("Cannot parse parameters for retrying exception", e);
 		}
 	}
 }

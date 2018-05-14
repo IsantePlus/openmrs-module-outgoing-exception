@@ -24,6 +24,7 @@ import org.openmrs.module.registrationcore.api.mpi.common.MpiProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -32,6 +33,7 @@ public class PixRetryInvoker implements RetryInvoker {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PixRetryInvoker.class);
 
 	@Autowired
+    @Qualifier("adminService")
 	private AdministrationService administrationService;
 
 	@Autowired
@@ -50,12 +52,12 @@ public class PixRetryInvoker implements RetryInvoker {
 	public void retry(OutgoingMessage outgoingMessage) {
 		boolean isSuccess = false;
 
-		SendingPatientToMpiParameters parameters = getParameters(outgoingMessage);
-		Patient patient =
-				Context.getPatientService().getPatientByUuid(parameters.getPatientUuid());
-
 		MpiProvider mpiProvider = registrationCoreProperties.getMpiProvider();
 		try {
+			SendingPatientToMpiParameters parameters = getParameters(outgoingMessage);
+			Patient patient =
+					Context.getPatientService().getPatientByUuid(parameters.getPatientUuid());
+
 			if (StringUtils.equals(outgoingMessage.getDestination(),
 					PixErrorHandlingService.SENDING_PATIENT_AFTER_PATIENT_CREATION_DESTINATION)) {
 				String ecid = mpiProvider.exportPatient(patient);
@@ -92,7 +94,7 @@ public class PixRetryInvoker implements RetryInvoker {
 			return new ObjectMapper().readValue(outgoingMessage.getMessageBody(),
 					SendingPatientToMpiParameters.class);
 		} catch (IOException e) {
-			throw new RuntimeException("Cannot parse parameters for retried exception", e);
+			throw new RuntimeException("Cannot parse parameters for retrying exception", e);
 		}
 	}
 

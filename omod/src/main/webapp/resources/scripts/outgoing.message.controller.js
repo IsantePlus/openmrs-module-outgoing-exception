@@ -20,7 +20,7 @@ jQuery(document).ready(function() {
                 var d = $.Deferred();
 
                 jQuery.ajax({
-                    url: "/openmrs/ws/rest/isanteplus/messages?type=" + messageType,
+                    url: "/openmrs/ws/rest/isanteplus/messages?type=" + messageType + "&failed=true",
                     type: "GET",
                     dataType: "json",
                     data: filter
@@ -33,11 +33,11 @@ jQuery(document).ready(function() {
         },
         fields: [
             {name: 'id', type: "number", visible: false},
-            {title: titles[0], name: "timestamp", type: "text", sorting: true, filtering: true},
+            {title: titles[0], name: "timestamp", type: "text", sorting: true, filtering: true, width: "50"},
             {title: titles[1], name: "destination" , type: "text", sorting: true, filtering: true},
-            {title: titles[2], name: "user.name" , type: "text", textField: "uuid", filtering: true},
+            {title: titles[2], name: "user.name" , type: "text", textField: "uuid", filtering: true, width: "30"},
             {
-                title: titles[3], name: "failure" , type: "text", sorting: true, filtering: true, align: "center",
+                title: titles[3], name: "failure" , type: "text", sorting: true, filtering: true, align: "center", width: "50",
                 itemTemplate: function(failure) {
                     var result;
                     if (failure === false) {
