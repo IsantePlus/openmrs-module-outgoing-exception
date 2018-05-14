@@ -220,7 +220,31 @@ public class OutgoingMessage extends BaseOpenmrsData {
 	public void setRetryReason(String retryReason) {
 		this.retryReason = retryReason;
 	}
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		if (!super.equals(o)) {
+			return false;
+		}
+
+		OutgoingMessage that = (OutgoingMessage) o;
+
+		return id != null ? id.equals(that.id) : that.id == null;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = super.hashCode();
+		result = 31 * result + (id != null ? id.hashCode() : 0);
+		return result;
+	}
+
 	public static class OutgoingMessageSerializer extends StdSerializer<OutgoingMessage> {
 		
 		public OutgoingMessageSerializer() {
