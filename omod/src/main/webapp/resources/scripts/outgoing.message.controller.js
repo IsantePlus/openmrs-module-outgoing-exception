@@ -20,7 +20,7 @@ jQuery(document).ready(function() {
                 var d = $.Deferred();
 
                 jQuery.ajax({
-                    url: "/openmrs/ws/rest/isanteplus/messages?type=" + messageType + "&failed=true",
+                    url: "/openmrs/ws/rest/isanteplus/messages?type=" + messageType,
                     type: "GET",
                     dataType: "json",
                     data: filter

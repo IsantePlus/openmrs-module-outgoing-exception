@@ -285,7 +285,7 @@ public class OutgoingMessage extends BaseOpenmrsData {
 				JsonObject owner = new JsonObject();
 				
 				owner.addProperty("uuid", src.owner.getUuid());
-				owner.addProperty("name", src.owner.getUsername());
+				owner.addProperty("name", src.owner.getDisplayString());
 				
 				object.add("user", owner);
 			}

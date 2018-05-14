@@ -124,10 +124,10 @@ public class OutgoingMessageExceptionsServiceImpl extends BaseOpenmrsService imp
 		if (v != null && v.toLowerCase().equals(OutgoingMessageExceptionsConstants.FULL)) {
 			results = (from != null) ? getAllMessagesFrom(from) : getAllMessages();
 		} else {
-			results = dao.getPaginatedMessages(page, pageSize, from, sortingFieldName, order, type, failed, false);
+			results = dao.getPaginatedMessages(page, pageSize, from, sortingFieldName, order, type, failed, true);
 		}
 		OutgoingMessageList composedResults = new OutgoingMessageList(dao.getCountOfMessages(from, sortingFieldName, order,
-		    type, failed, false), page, pageSize, from, results);
+		    type, failed, true), page, pageSize, from, results);
 		return serializeResults(composedResults).toString();
 	}
 	
