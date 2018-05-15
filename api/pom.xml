@@ -17,7 +17,6 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.4.2</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
@@ -26,14 +25,10 @@
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>registrationcore-api</artifactId>
-			<version>${registrationcoreVersion}</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>xds-sender-api</artifactId>
-			<version>${xds-senderVersion}</version>
-			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 

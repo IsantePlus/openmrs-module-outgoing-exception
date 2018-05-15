@@ -43,20 +43,6 @@ public class OutgoingMessageExceptionsServiceImpl extends BaseOpenmrsService imp
 	@Autowired
 	private UserService userService;
 	
-	/**
-	 * Injected in moduleApplicationContext.xml
-	 */
-	public void setDao(OutgoingMessageExceptionsDao dao) {
-		this.dao = dao;
-	}
-	
-	/**
-	 * Injected in moduleApplicationContext.xml
-	 */
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
-	
 	@Override
 	public OutgoingMessage getItemByUuid(String uuid) throws APIException {
 		return dao.getItemByUuid(uuid);
@@ -72,7 +58,12 @@ public class OutgoingMessageExceptionsServiceImpl extends BaseOpenmrsService imp
 	}
 	
 	@Override
-	public String getMessageById(Integer id) throws APIException, JsonProcessingException {
+	public OutgoingMessage getMessageById(Integer id) throws APIException {
+		return dao.getMessageById(id);
+	}
+	
+	@Override
+	public String getSerializedMessageById(Integer id) throws APIException, JsonProcessingException {
 		
 		OutgoingMessage outgoingMessage = dao.getMessageById(id);
 		ObjectMapper mapper = new ObjectMapper();
@@ -95,7 +86,7 @@ public class OutgoingMessageExceptionsServiceImpl extends BaseOpenmrsService imp
 		}
 		outgoingMessage.setRetried(true);
 		outgoingMessage.setRetryTimestamp(convertLocalDateToDate(retryLocalDate));
-		outgoingMessage.setRetryReason(retryReason);
+		outgoingMessage.setRetryResult(retryReason);
 		saveItem(outgoingMessage);
 	}
 	
@@ -107,7 +98,7 @@ public class OutgoingMessageExceptionsServiceImpl extends BaseOpenmrsService imp
 		}
 		outgoingMessage.setRetryTimestamp(convertLocalDateToDate(retryLocalDate));
 		outgoingMessage.setTimestamp(convertLocalDateToDate(retryLocalDate));
-		outgoingMessage.setRetryReason(retryReason);
+		outgoingMessage.setRetryResult(retryReason);
 		saveItem(outgoingMessage);
 	}
 	
@@ -122,16 +113,21 @@ public class OutgoingMessageExceptionsServiceImpl extends BaseOpenmrsService imp
 	}
 	
 	@Override
+	public List<OutgoingMessage> getFailedMessagesByTypeChronologically(MessageType type) {
+		return dao.getFailedMessagesByTypeChronologically(type);
+	}
+	
+	@Override
 	public String getPaginatedMessages(Integer page, Integer pageSize, LocalDate from, String v,
 	        SortingFieldName sortingFieldName, SortingOrder order, MessageType type, Boolean failed) {
 		List<OutgoingMessage> results;
 		if (v != null && v.toLowerCase().equals(OutgoingMessageExceptionsConstants.FULL)) {
 			results = (from != null) ? getAllMessagesFrom(from) : getAllMessages();
 		} else {
-			results = dao.getPaginatedMessages(page, pageSize, from, sortingFieldName, order, type, failed, false);
+			results = dao.getPaginatedMessages(page, pageSize, from, sortingFieldName, order, type, failed, true);
 		}
 		OutgoingMessageList composedResults = new OutgoingMessageList(dao.getCountOfMessages(from, sortingFieldName, order,
-		    type, failed, false), page, pageSize, from, results);
+		    type, failed, true), page, pageSize, from, results);
 		return serializeResults(composedResults).toString();
 	}
 	

@@ -9,23 +9,27 @@
  */
 package org.openmrs.module.outgoingmessageexceptions;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.BaseModuleActivator;
+import org.openmrs.module.outgoingmessageexceptions.api.retry.RetrySchedulerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class contains the logic that is run every time this module is either started or shutdown
  */
 public class OutgoingMessageExceptionsActivator extends BaseModuleActivator {
 	
-	private Log log = LogFactory.getLog(this.getClass());
+	private static final Logger LOGGER = LoggerFactory.getLogger(
+			OutgoingMessageExceptionsActivator.class);
 	
 	/**
 	 * @see #started()
 	 */
 	@Override
 	public void started() {
-		log.info("Started Outgoing Message Exceptions");
+		LOGGER.info("Started Outgoing Message Exceptions");
+		getRetrySchedulerService().createTaskIfNotExists();
 	}
 	
 	/**
@@ -33,7 +37,11 @@ public class OutgoingMessageExceptionsActivator extends BaseModuleActivator {
 	 */
 	@Override
 	public void stopped() {
-		log.info("Shutdown Outgoing Message Exceptions");
+		LOGGER.info("Shutdown Outgoing Message Exceptions");
 	}
 	
+	private RetrySchedulerService getRetrySchedulerService() {
+		return Context.getRegisteredComponent("outgoingmessageexceptions.RetrySchedulerService",
+				RetrySchedulerService.class);
+	}
 }

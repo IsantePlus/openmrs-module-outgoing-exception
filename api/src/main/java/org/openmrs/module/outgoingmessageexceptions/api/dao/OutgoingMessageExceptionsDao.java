@@ -105,6 +105,14 @@ public class OutgoingMessageExceptionsDao {
 		return Timestamp.valueOf(localDate.atStartOfDay());
 	}
 	
+	public List<OutgoingMessage> getFailedMessagesByTypeChronologically(MessageType type) {
+		return (List<OutgoingMessage>)getSession().createCriteria(OutgoingMessage.class)
+				.add(Restrictions.eq(OutgoingMessageExceptionsConstants.FAILURE_COLUMN_NAME, true))
+				.add(Restrictions.eq(OutgoingMessageExceptionsConstants.TYPE_COLUMN_NAME, type.name()))
+				.addOrder(Order.asc(OutgoingMessageExceptionsConstants.TIMESTAMP_COLUMN_NAME))
+				.list();
+	}
+	
 	private Criteria createSelectCriteria(LocalDate from, SortingFieldName sortingFieldName, SortingOrder order,
 	        MessageType type, Boolean failed, Boolean retried) {
 		Criteria selectCriteria = getSession().createCriteria(OutgoingMessage.class);

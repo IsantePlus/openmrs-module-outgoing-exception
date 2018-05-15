@@ -39,7 +39,7 @@ public interface OutgoingMessageExceptionsService extends OpenmrsService {
 	 * @return
 	 * @throws APIException
 	 */
-	@Authorized()
+	@Authorized
 	@Transactional(readOnly = true)
 	OutgoingMessage getItemByUuid(String uuid) throws APIException;
 	
@@ -63,9 +63,22 @@ public interface OutgoingMessageExceptionsService extends OpenmrsService {
 	 * @return OutgoingMessage
 	 * @throws APIException
 	 */
-	@Authorized()
+	@Authorized
 	@Transactional(readOnly = true)
-	String getMessageById(Integer id) throws APIException, JsonProcessingException;
+	OutgoingMessage getMessageById(Integer id) throws APIException, JsonProcessingException;
+	
+	
+	/**
+	 * Returns an serialized OutgoingMessage by id. It can be called by any authenticated user.
+	 * It is fetched in read only transaction.
+	 *
+	 * @param id
+	 * @return OutgoingMessage
+	 * @throws APIException
+	 */
+	@Authorized
+	@Transactional(readOnly = true)
+	String getSerializedMessageById(Integer id) throws APIException, JsonProcessingException;
 	
 	/**
 	 * Set an OutgoingMessage as retried. It needs message id parameter to find the message, a retry
@@ -79,7 +92,7 @@ public interface OutgoingMessageExceptionsService extends OpenmrsService {
 	 * @throws APIException
 	 * @throws JsonProcessingException
 	 */
-	@Authorized()
+	@Authorized
 	void retryMessage(Integer id, LocalDate retryLocalDate, String retryReason) throws NotFoundException,
 	        BadRequestException;
 	
@@ -95,7 +108,7 @@ public interface OutgoingMessageExceptionsService extends OpenmrsService {
 	 * @throws APIException
 	 * @throws JsonProcessingException
 	 */
-	@Authorized()
+	@Authorized
 	void updateMessage(Integer id, LocalDate retryLocalDate, String retryReason) throws NotFoundException,
 	        BadRequestException;
 	
@@ -138,4 +151,13 @@ public interface OutgoingMessageExceptionsService extends OpenmrsService {
 	@Authorized
 	@Transactional(readOnly = true)
 	List<OutgoingMessage> getAllMessages();
+	
+	/**
+	 * Fetches failed outgoingMessages by MessageType.It can be called by any authenticated user.
+	 *
+	 * @return list of the messages.
+	 */
+	@Authorized
+	@Transactional(readOnly = true)
+	List<OutgoingMessage> getFailedMessagesByTypeChronologically(MessageType type);
 }

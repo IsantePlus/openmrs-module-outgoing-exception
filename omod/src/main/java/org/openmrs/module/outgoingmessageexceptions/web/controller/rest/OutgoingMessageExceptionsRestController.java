@@ -77,8 +77,8 @@ public class OutgoingMessageExceptionsRestController {
 	@ResponseBody
 	public String getMessageById(@PathVariable Integer id) throws JsonProcessingException {
 		if (Context.hasPrivilege(OutgoingMessageExceptionsConstants.GET_OUTGOING)) {
-			logger.debug("Get Single message reached by message id");
-			return outgoingMessageExceptionsService.getMessageById(id);
+			logger.debug("Get single message reached by message id");
+			return outgoingMessageExceptionsService.getSerializedMessageById(id);
 		} else
 			return null;
 	}

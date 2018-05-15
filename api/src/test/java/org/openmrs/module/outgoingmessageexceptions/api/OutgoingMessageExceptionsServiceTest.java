@@ -37,6 +37,7 @@ import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
 /**
@@ -50,13 +51,13 @@ public class OutgoingMessageExceptionsServiceTest {
 	private static final String OUTGOING_PAGINATED_MESSAGE_RESPONSE_JSON = "/testPaginatedOutgoingMessage.json";
 	
 	@InjectMocks
-	OutgoingMessageExceptionsServiceImpl basicModuleService;
+	private OutgoingMessageExceptionsServiceImpl basicModuleService;
 	
 	@Mock
-	OutgoingMessageExceptionsDao dao;
+	private OutgoingMessageExceptionsDao dao;
 	
 	@Mock
-	UserService userService;
+	private UserService userService;
 	
 	@Before
 	public void setupMocks() {
@@ -81,15 +82,27 @@ public class OutgoingMessageExceptionsServiceTest {
 	}
 	
 	@Test
-	public void shouldReturnMessageById() throws Exception {
+	public void shouldReturnSerializedMessageById() throws Exception {
 		Integer testId = 1;
 		
 		when(dao.getMessageById(1)).thenReturn(prepareDummyOutgoingMessage());
 		
 		String expected = readJsonFromFile(OUTGOING_MESSAGE_RESPONSE_JSON);
-		String fetched = basicModuleService.getMessageById(testId);
+		String fetched = basicModuleService.getSerializedMessageById(testId);
 		
 		assertEquals(expected, fetched);
+	}
+	
+	@Test
+	public void shouldReturnMessageById() {
+		Integer testId = 1;
+		OutgoingMessage dummyOutgoingMessage = prepareDummyOutgoingMessage();
+		
+		when(dao.getMessageById(1)).thenReturn(dummyOutgoingMessage);
+		
+		OutgoingMessage fetched = basicModuleService.getMessageById(testId);
+		
+		assertEquals(dummyOutgoingMessage, fetched);
 	}
 	
 	@Test
@@ -105,9 +118,9 @@ public class OutgoingMessageExceptionsServiceTest {
 		
 		OutgoingMessageStringToDateConverter converter = new OutgoingMessageStringToDateConverter();
 		
-		when(dao.getPaginatedMessages(page, pageSize, converter.convert(from), sort, order, type, failed, false))
+		when(dao.getPaginatedMessages(page, pageSize, converter.convert(from), sort, order, type, failed, true))
 		        .thenReturn(prepareDummyPaginatedOutgoingMessages());
-		when(dao.getCountOfMessages(converter.convert(from), sort, order, type, failed, false)).thenReturn(2L);
+		when(dao.getCountOfMessages(converter.convert(from), sort, order, type, failed, true)).thenReturn(2L);
 		
 		String expected = readJsonFromFile(OUTGOING_PAGINATED_MESSAGE_RESPONSE_JSON);
 		String fetched = basicModuleService.getPaginatedMessages(page, pageSize, converter.convert(from), v, sort, order,

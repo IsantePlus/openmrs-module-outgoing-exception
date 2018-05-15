@@ -33,14 +33,14 @@ jQuery(document).ready(function() {
         },
         fields: [
             {name: 'id', type: "number", visible: false},
-            {title: titles[0], name: "timestamp", type: "text", sorting: true, filtering: true},
+            {title: titles[0], name: "timestamp", type: "text", sorting: true, filtering: true, width: "50"},
             {title: titles[1], name: "destination" , type: "text", sorting: true, filtering: true},
-            {title: titles[2], name: "user.name" , type: "text", textField: "uuid", filtering: true},
+            {title: titles[2], name: "user.name" , type: "text", textField: "uuid", filtering: true, width: "30"},
             {
-                title: titles[3], name: "failure" , type: "text", sorting: true, filtering: true, align: "center",
-                itemTemplate: function(value) {
+                title: titles[3], name: "failure" , type: "text", sorting: true, filtering: true, align: "center", width: "50",
+                itemTemplate: function(failure) {
                     var result;
-                    if (value === true) {
+                    if (failure === false) {
                         result = $("<div>").prepend('<img id="successImage" src="/openmrs/ms/uiframework/resource/outgoing-message-exceptions/images/icons8-Ok-48.png" />');
                     } else {
                         result = $("<div>").prepend('<img id="failureImage" src="/openmrs/ms/uiframework/resource/outgoing-message-exceptions/images/icons8-Cancel-48.png" />');
