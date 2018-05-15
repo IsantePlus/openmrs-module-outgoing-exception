@@ -70,4 +70,12 @@
 			<column name="retryReason" type="text"/>
 		</modifyColumn>
 	</changeSet>
+
+	<changeSet id="outgoingmessageexceptions-2018-05-15-14-41" author="Daniel Serkowski">
+		<preConditions>
+			<tableExists tableName="outgoingmessageexceptions_message"/>
+		</preConditions>
+		<renameColumn tableName="outgoingmessageexceptions_message" columnDataType="text"
+				oldColumnName="retryReason" newColumnName="retryResult"/>
+	</changeSet>
 </databaseChangeLog>

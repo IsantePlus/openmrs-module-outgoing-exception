@@ -40,11 +40,11 @@ public class XdsBRetryInvoker implements RetryInvoker {
 					Context.getPatientService().getPatientByUuid(parameters.getPatientUuid());
 
 			xdsExportService.exportProvideAndRegister(encounter, patient);
-			outgoingMessage.setRetryReason("Retried successfully");
+			outgoingMessage.setRetryResult("Retried successfully");
 			isSuccess = true;
 		} catch (Exception e) {
 			LOGGER.error("Unsuccessful retry", e);
-			outgoingMessage.setRetryReason(ExceptionUtils.getFullStackTrace(e));
+			outgoingMessage.setRetryResult(ExceptionUtils.getFullStackTrace(e));
 		}
 
 		outgoingMessage.setRetried(true);

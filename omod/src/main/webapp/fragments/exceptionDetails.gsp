@@ -15,13 +15,13 @@
             <td>${ outgoingMessage.id }</td>
         </tr><tr>
             <th class="label">${ ui.message(artifactId + ".details.messageBody.label") }</th>
-            <td><textarea style="width:100%" disabled>${ outgoingMessage.messageBody }</textarea></td>
+            <td><textarea style="width:100%" readonly>${ outgoingMessage.messageBody }</textarea></td>
         </tr><tr>
             <th class="label">${ ui.message(artifactId + ".details.timestamp.label") }</th>
             <td>${ outgoingMessage.timestamp }</td>
         </tr><tr>
             <th class="label">${ ui.message(artifactId + ".details.failureReason.label") }</th>
-            <td><textarea style="width:100%" disabled>${ outgoingMessage.failureReason }</textarea></td>
+            <td><textarea style="width:100%" readonly>${ outgoingMessage.failureReason }</textarea></td>
         </tr><tr>
             <th class="label">${ ui.message(artifactId + ".details.destination.label") }</th>
             <td>${ outgoingMessage.destination }</td>
@@ -45,8 +45,8 @@
               <td>${ outgoingMessage.retryTimestamp }</td>
           </tr>
           <tr>
-              <th class="label">${ ui.message(artifactId + ".details.retry.retry_result") }</th>
-              <td><textarea style="width:100%" disabled>${ outgoingMessage.retryReason }</textarea></td>
+              <th class="label">${ ui.message(artifactId + ".details.retry.last_retry_result") }</th>
+              <td><textarea style="width:100%" readonly>${ outgoingMessage.retryResult }</textarea></td>
           </tr>
         <% } %>
     <% } else { %>

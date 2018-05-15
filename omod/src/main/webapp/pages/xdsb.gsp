@@ -21,7 +21,7 @@ if (context.hasPrivilege("View Outgoing Messages")) {
         "${ ui.message('outgoing-message-exceptions.message.header.timestamp') }",
         "${ ui.message('outgoing-message-exceptions.message.header.destination') }",
         "${ ui.message('outgoing-message-exceptions.message.header.user') }",
-        "${ ui.message('outgoing-message-exceptions.message.header.failure') }"
+        "${ ui.message('outgoing-message-exceptions.message.header.is_successfully_retried') }"
     ];
 </script>
 

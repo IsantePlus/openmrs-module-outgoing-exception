@@ -85,8 +85,8 @@ public class OutgoingMessage extends BaseOpenmrsData {
 	
 	@Lob
 	@Basic
-	@Column(name = "retryReason")
-	private String retryReason;
+	@Column(name = "retryResult")
+	private String retryResult;
 	
 	public OutgoingMessage() {
 	}
@@ -103,11 +103,11 @@ public class OutgoingMessage extends BaseOpenmrsData {
 		this.failure = failure;
 		this.retried = false;
 		this.retryTimestamp = null;
-		this.retryReason = null;
+		this.retryResult = null;
 	}
 	
 	public OutgoingMessage(Integer id, Integer ownerId, String messageBody, Date timestamp, String failureReason,
-	    String destination, String type, boolean failure, boolean retried, Date retryTimestamp, String retryReason) {
+	    String destination, String type, boolean failure, boolean retried, Date retryTimestamp, String retryResult) {
 		this.id = id;
 		this.owner = new User(ownerId);
 		this.messageBody = messageBody;
@@ -118,7 +118,7 @@ public class OutgoingMessage extends BaseOpenmrsData {
 		this.failure = failure;
 		this.retried = retried;
 		this.retryTimestamp = retryTimestamp;
-		this.retryReason = retryReason;
+		this.retryResult = retryResult;
 	}
 	
 	@Override
@@ -213,12 +213,12 @@ public class OutgoingMessage extends BaseOpenmrsData {
 		this.retryTimestamp = retryTimestamp;
 	}
 	
-	public String getRetryReason() {
-		return retryReason;
+	public String getRetryResult() {
+		return retryResult;
 	}
 	
-	public void setRetryReason(String retryReason) {
-		this.retryReason = retryReason;
+	public void setRetryResult(String retryResult) {
+		this.retryResult = retryResult;
 	}
 
 	@Override

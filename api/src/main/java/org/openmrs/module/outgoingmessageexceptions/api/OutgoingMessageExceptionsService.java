@@ -39,7 +39,7 @@ public interface OutgoingMessageExceptionsService extends OpenmrsService {
 	 * @return
 	 * @throws APIException
 	 */
-	@Authorized()
+	@Authorized
 	@Transactional(readOnly = true)
 	OutgoingMessage getItemByUuid(String uuid) throws APIException;
 	
@@ -76,7 +76,7 @@ public interface OutgoingMessageExceptionsService extends OpenmrsService {
 	 * @return OutgoingMessage
 	 * @throws APIException
 	 */
-	@Authorized()
+	@Authorized
 	@Transactional(readOnly = true)
 	String getSerializedMessageById(Integer id) throws APIException, JsonProcessingException;
 	

@@ -86,7 +86,7 @@ public class OutgoingMessageExceptionsServiceImpl extends BaseOpenmrsService imp
 		}
 		outgoingMessage.setRetried(true);
 		outgoingMessage.setRetryTimestamp(convertLocalDateToDate(retryLocalDate));
-		outgoingMessage.setRetryReason(retryReason);
+		outgoingMessage.setRetryResult(retryReason);
 		saveItem(outgoingMessage);
 	}
 	
@@ -98,7 +98,7 @@ public class OutgoingMessageExceptionsServiceImpl extends BaseOpenmrsService imp
 		}
 		outgoingMessage.setRetryTimestamp(convertLocalDateToDate(retryLocalDate));
 		outgoingMessage.setTimestamp(convertLocalDateToDate(retryLocalDate));
-		outgoingMessage.setRetryReason(retryReason);
+		outgoingMessage.setRetryResult(retryReason);
 		saveItem(outgoingMessage);
 	}
 	

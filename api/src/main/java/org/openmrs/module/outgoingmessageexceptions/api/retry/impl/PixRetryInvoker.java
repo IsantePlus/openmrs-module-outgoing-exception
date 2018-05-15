@@ -33,7 +33,7 @@ public class PixRetryInvoker implements RetryInvoker {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PixRetryInvoker.class);
 
 	@Autowired
-    @Qualifier("adminService")
+	@Qualifier("adminService")
 	private AdministrationService administrationService;
 
 	@Autowired
@@ -66,11 +66,11 @@ public class PixRetryInvoker implements RetryInvoker {
 				mpiProvider.updatePatient(patient);
 			}
 
-			outgoingMessage.setRetryReason("Retried successfully");
+			outgoingMessage.setRetryResult("Retried successfully");
 			isSuccess = true;
 		} catch (Exception e) {
 			LOGGER.error("Unsuccessful retry", e);
-			outgoingMessage.setRetryReason(ExceptionUtils.getFullStackTrace(e));
+			outgoingMessage.setRetryResult(ExceptionUtils.getFullStackTrace(e));
 		}
 
 		outgoingMessage.setRetried(true);

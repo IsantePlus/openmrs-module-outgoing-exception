@@ -41,7 +41,7 @@ public abstract class BaseHandlingServiceImpl extends BaseOpenmrsService {
 		message.setType(getMessageType().name());
 		message.setTimestamp(new Date());
 		message.setRetried(false);
-		message.setRetryReason("");
+		message.setRetryResult("");
 
 		outgoingMessageExceptionsService.saveItem(message);
 	}
