@@ -25,7 +25,7 @@
 		<appframeworkVersion>2.10.0</appframeworkVersion>
 		<emrapiVersion>1.21.0</emrapiVersion>
 		<coreappsVersion>1.13.0</coreappsVersion>
-		<registrationcoreVersion>1.7.2-SNAPSHOT</registrationcoreVersion>
+		<registrationcoreVersion>1.9.0</registrationcoreVersion>
 		<xdssenderVersion>1.0.0</xdssenderVersion>
 		<gsonVersion>2.8.1</gsonVersion>
 		<fasterXmlJacksonVersion>2.4.2</fasterXmlJacksonVersion>
