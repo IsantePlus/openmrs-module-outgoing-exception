@@ -10,7 +10,7 @@
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>outgoing-message-exceptions</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<packaging>pom</packaging>
 	<name>Outgoing Message Exceptions</name>
 	<description>Module for iSantePlus Outgoing Message Exceptions</description>
@@ -24,9 +24,9 @@
 		<htmlformentryuiVersion>1.6.3</htmlformentryuiVersion>
 		<appframeworkVersion>2.10.0</appframeworkVersion>
 		<emrapiVersion>1.21.0</emrapiVersion>
-		<coreappsVersion>1.13.0</coreappsVersion>
+		<coreappsVersion>1.19.1</coreappsVersion>
 		<registrationcoreVersion>1.9.0</registrationcoreVersion>
-		<xdssenderVersion>1.0.0</xdssenderVersion>
+		<xdssenderVersion>2.0.0-SNAPSHOT</xdssenderVersion>
 		<gsonVersion>2.8.1</gsonVersion>
 		<fasterXmlJacksonVersion>2.9.10.5</fasterXmlJacksonVersion>
 		<legacyuiVersion>1.0</legacyuiVersion>

@@ -45,4 +45,4 @@ jobs:
             }]
           githubServer: false
       - name: Build with Maven
-        run: mvn -P 'github-packages' -B install
+        run: mvn -P 'github-packages' -B install -Duser.timezone=CET
