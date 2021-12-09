@@ -28,7 +28,7 @@
 		<registrationcoreVersion>1.9.0</registrationcoreVersion>
 		<xdssenderVersion>1.0.0</xdssenderVersion>
 		<gsonVersion>2.8.1</gsonVersion>
-		<fasterXmlJacksonVersion>2.9.10.5</fasterXmlJacksonVersion>
+		<fasterXmlJacksonVersion>2.9.10.8</fasterXmlJacksonVersion>
 		<legacyuiVersion>1.0</legacyuiVersion>
 	</properties>
 
