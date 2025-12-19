@@ -53,24 +53,26 @@ public class PixRetryInvoker implements RetryInvoker {
 		boolean isSuccess = false;
 
 		MpiProvider mpiProvider = registrationCoreProperties.getMpiProvider();
-		try {
-			SendingPatientToMpiParameters parameters = getParameters(outgoingMessage);
-			Patient patient =
-					Context.getPatientService().getPatientByUuid(parameters.getPatientUuid());
+		if (mpiProvider != null) {
+			try {
+				SendingPatientToMpiParameters parameters = getParameters(outgoingMessage);
+				Patient patient =
+						Context.getPatientService().getPatientByUuid(parameters.getPatientUuid());
 
-			if (StringUtils.equals(outgoingMessage.getDestination(),
-					PixErrorHandlingService.SENDING_PATIENT_AFTER_PATIENT_CREATION_DESTINATION)) {
-				String ecid = mpiProvider.exportPatient(patient);
-				updatePatient(patient, ecid);
-			} else {
-				mpiProvider.updatePatient(patient);
+				if (StringUtils.equals(outgoingMessage.getDestination(),
+						PixErrorHandlingService.SENDING_PATIENT_AFTER_PATIENT_CREATION_DESTINATION)) {
+					String ecid = mpiProvider.exportPatient(patient);
+					updatePatient(patient, ecid);
+				} else {
+					mpiProvider.updatePatient(patient);
+				}
+
+				outgoingMessage.setRetryResult("Retried successfully");
+				isSuccess = true;
+			} catch (Exception e) {
+				LOGGER.error("Unsuccessful retry", e);
+				outgoingMessage.setRetryResult(ExceptionUtils.getFullStackTrace(e));
 			}
-
-			outgoingMessage.setRetryResult("Retried successfully");
-			isSuccess = true;
-		} catch (Exception e) {
-			LOGGER.error("Unsuccessful retry", e);
-			outgoingMessage.setRetryResult(ExceptionUtils.getFullStackTrace(e));
 		}
 
 		outgoingMessage.setRetried(true);
