@@ -29,7 +29,8 @@ public class OutgoingMessageExceptionsActivator extends BaseModuleActivator {
 	@Override
 	public void started() {
 		LOGGER.info("Started Outgoing Message Exceptions");
-		getRetrySchedulerService().createTaskIfNotExists();
+		// getRetrySchedulerService().createTaskIfNotExists();
+		getRetrySchedulerService().stopTaskIfExists();
 	}
 	
 	/**

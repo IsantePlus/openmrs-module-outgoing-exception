@@ -10,7 +10,7 @@
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>outgoing-message-exceptions</artifactId>
-	<version>1.0.1</version>
+	<version>1.1.0</version>
 	<packaging>pom</packaging>
 	<name>Outgoing Message Exceptions</name>
 	<description>Module for iSantePlus Outgoing Message Exceptions</description>

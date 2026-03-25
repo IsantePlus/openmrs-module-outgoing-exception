@@ -3,6 +3,7 @@ package org.openmrs.module.outgoingmessageexceptions.api.retry.impl;
 import java.sql.Timestamp;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.outgoingmessageexceptions.api.retry.RetrySchedulerService;
+import org.openmrs.scheduler.SchedulerService;
 import org.openmrs.scheduler.TaskDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,9 +38,23 @@ public class RetrySchedulerServiceImpl implements RetrySchedulerService {
 				Context.getSchedulerService().saveTaskDefinition(result);
 				Context.getSchedulerService().scheduleTask(
 						Context.getSchedulerService().getTaskByName(name));
-				LOGGER.info(String.format("Created new scheduler task '%s'", name));
+				LOGGER.info("Created new scheduler task '{}'", name);
 			} catch (Exception e) {
-				LOGGER.error(String.format("Error during creating scheduler task '%s'", name), e);
+				LOGGER.error("Error during creating scheduler task '{}'", name, e);
+			}
+		}
+	}
+
+	@Override
+	public void stopTaskIfExists() {
+		SchedulerService ss = Context.getSchedulerService();
+		TaskDefinition result = ss.getTaskByName(RetryTask.TASK_NAME);
+
+		if (result != null) {
+			try {
+				ss.shutdownTask(result);
+			} catch (Exception e) {
+				LOGGER.error("Error while stopping {}", RetryTask.TASK_NAME);
 			}
 		}
 	}
