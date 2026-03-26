@@ -19,7 +19,8 @@ public class RetryTask extends AbstractTask {
 	@Override
 	public void execute() {
 		LOGGER.info("Executing " + TASK_NAME  + "...");
-		getRetryService().retryAll();
+		// FIXME Disabled in 1.1.1 as stopping the scheduled task doesn't stop this mechanism
+		// getRetryService().retryAll();
 	}
 	
 	private RetryService getRetryService() {

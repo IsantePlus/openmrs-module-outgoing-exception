@@ -59,12 +59,14 @@ public class PixRetryInvoker implements RetryInvoker {
 				Patient patient =
 						Context.getPatientService().getPatientByUuid(parameters.getPatientUuid());
 
-				if (StringUtils.equals(outgoingMessage.getDestination(),
-						PixErrorHandlingService.SENDING_PATIENT_AFTER_PATIENT_CREATION_DESTINATION)) {
-					String ecid = mpiProvider.exportPatient(patient);
-					updatePatient(patient, ecid);
-				} else {
-					mpiProvider.updatePatient(patient);
+				if (patient != null) {
+					if (StringUtils.equals(outgoingMessage.getDestination(),
+							PixErrorHandlingService.SENDING_PATIENT_AFTER_PATIENT_CREATION_DESTINATION)) {
+						String ecid = mpiProvider.exportPatient(patient);
+						updatePatient(patient, ecid);
+					} else {
+						mpiProvider.updatePatient(patient);
+					}
 				}
 
 				outgoingMessage.setRetryResult("Retried successfully");
