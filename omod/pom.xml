@@ -155,4 +155,40 @@
 		</plugins>
 	</build>
 
+	<profiles>
+		<profile>
+			<id>github-packages</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-deploy-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>default-deploy</id>
+								<phase>none</phase>
+							</execution>
+							<execution>
+								<id>deploy-omod</id>
+								<phase>deploy</phase>
+								<goals>
+									<goal>deploy-file</goal>
+								</goals>
+								<configuration>
+									<url>https://maven.pkg.github.com/isanteplus/isanteplus-packages</url>
+									<file>target/${project.parent.artifactId}-${project.version}.omod</file>
+									<repositoryId>github-packages</repositoryId>
+									<packaging>omod</packaging>
+									<generatePom>false</generatePom>
+									<artifactId>${project.parent.artifactId}-omod</artifactId>
+									<version>${project.version}</version>
+									<groupId>${project.groupId}</groupId>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
 </project>
