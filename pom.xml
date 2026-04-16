@@ -26,7 +26,7 @@
 		<emrapiVersion>1.21.0</emrapiVersion>
 		<coreappsVersion>1.13.0</coreappsVersion>
 		<registrationcoreVersion>1.9.0</registrationcoreVersion>
-		<xdssenderVersion>2.5.6</xdssenderVersion>
+		<xdssenderVersion>2.6.0</xdssenderVersion>
 		<gsonVersion>2.8.1</gsonVersion>
 		<fasterXmlJacksonVersion>2.9.10.5</fasterXmlJacksonVersion>
 		<legacyuiVersion>1.0</legacyuiVersion>
