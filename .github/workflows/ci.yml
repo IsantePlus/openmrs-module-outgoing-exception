@@ -31,4 +31,4 @@ jobs:
           server-password: RELEASE_TOKEN
 
       - name: Build and test
-        run: mvn -B -P github-packages clean package
+        run: mvn -B -P github-packages -Duser.timezone=CET -DargLine="-Duser.timezone=CET" clean package
