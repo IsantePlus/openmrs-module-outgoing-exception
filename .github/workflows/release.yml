@@ -36,11 +36,8 @@ jobs:
           mvn versions:set -DnewVersion=${{ github.event.inputs.version }} -DgenerateBackupPoms=false
           echo "Set version to ${{ github.event.inputs.version }}"
 
-      - name: Build
-        run: mvn -B -P github-packages -DskipTests -Dfindbugs.skip=true -Dpmd.skip=true -Dcpd.skip=true clean package
-
-      - name: Publish to GitHub Packages
-        run: mvn -B -P github-packages -DskipTests -Dfindbugs.skip=true -Dpmd.skip=true -Dcpd.skip=true deploy
+      - name: Build and publish
+        run: mvn -B -P github-packages -DskipTests -Dfindbugs.skip=true -Dpmd.skip=true -Dcpd.skip=true clean deploy
 
       - name: Create release
         uses: softprops/action-gh-release@v3.0.0
