@@ -21,27 +21,29 @@ public class RetrySchedulerServiceImpl implements RetrySchedulerService {
 	}
 	
 	private void createTaskIfNotExists(String name, String description, Class retryClass, Long interval) {
-		TaskDefinition result = Context.getSchedulerService().getTaskByName(name);
-		
-		if (result == null) {
-			result = new TaskDefinition();
-			
-			result.setName(name);
-			result.setDescription(description);
-			result.setTaskClass(retryClass.getName());
-			result.setRepeatInterval(interval);
-			result.setStartTime(new Timestamp(System.currentTimeMillis()));
-			result.setStartOnStartup(true);
-			result.setCreator(Context.getAuthenticatedUser());
-			
-			try {
-				Context.getSchedulerService().saveTaskDefinition(result);
-				Context.getSchedulerService().scheduleTask(
-						Context.getSchedulerService().getTaskByName(name));
-				LOGGER.info("Created new scheduler task '{}'", name);
-			} catch (Exception e) {
-				LOGGER.error("Error during creating scheduler task '{}'", name, e);
-			}
+		SchedulerService ss = Context.getSchedulerService();
+		TaskDefinition result = ss.getTaskByName(name);
+
+		if (result != null) {
+			result.setStarted(false);
+			ss.deleteTask(result.getId());
+		}
+
+		result = new TaskDefinition();
+		result.setName(name);
+		result.setDescription(description);
+		result.setTaskClass(retryClass.getName());
+		result.setRepeatInterval(interval);
+		result.setStartTime(new Timestamp(System.currentTimeMillis()));
+		result.setStartOnStartup(false);
+		result.setCreator(Context.getAuthenticatedUser());
+
+		try {
+			ss.saveTaskDefinition(result);
+			ss.scheduleTask(ss.getTaskByName(name));
+			LOGGER.info("Created new scheduler task '{}'", name);
+		} catch (Exception e) {
+			LOGGER.error("Error during creating scheduler task '{}'", name, e);
 		}
 	}
 
